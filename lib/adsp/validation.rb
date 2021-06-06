@@ -4,7 +4,7 @@
 require_relative "error"
 
 module ADSP
-  module Validation
+  class Validation
     IO_METHODS = %i[
       read
       write
