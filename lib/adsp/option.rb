@@ -1,7 +1,6 @@
 # Abstract data stream processor.
 # Copyright (c) 2021 AUTHORS, MIT License.
 
-require_relative "error"
 require_relative "validation"
 
 module ADSP
@@ -12,7 +11,7 @@ module ADSP
       Validation.validate_hash options
       Validation.validate_array buffer_length_names
 
-      buffer_length_names.each { |name| Validation.validate_string name }
+      buffer_length_names.each { |name| Validation.validate_symbol name }
 
       buffer_length_defaults = buffer_length_names.each_with_object({}) do |name, defaults|
         defaults[name] = DEFAULT_BUFFER_LENGTH
@@ -29,7 +28,7 @@ module ADSP
       Validation.validate_hash options
       Validation.validate_array buffer_length_names
 
-      buffer_length_names.each { |name| Validation.validate_string name }
+      buffer_length_names.each { |name| Validation.validate_symbol name }
 
       buffer_length_defaults = buffer_length_names.each_with_object({}) do |name, defaults|
         defaults[name] = DEFAULT_BUFFER_LENGTH
