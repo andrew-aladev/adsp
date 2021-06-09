@@ -58,15 +58,15 @@ module ADSP
         end
       end
 
-      def readchar
-        readstring method(:getc)
-      end
-
       def each_char(&block)
         each_string method(:getc), &block
       end
 
       alias chars each_char
+
+      def readchar
+        readstring method(:getc)
+      end
 
       def ungetc(char)
         ungetstring char
@@ -134,6 +134,13 @@ module ADSP
         line
       end
 
+      def each_line(&block)
+        each_string method(:gets), &block
+      end
+
+      alias each each_line
+      alias lines each_line
+
       def readline
         readstring method(:gets)
       end
@@ -147,13 +154,6 @@ module ADSP
 
       alias to_a readlines
 
-      def each_line(&block)
-        each_string method(:gets), &block
-      end
-
-      alias each each_line
-      alias lines each_line
-
       def ungetline(line)
         ungetstring line
 
@@ -163,13 +163,6 @@ module ADSP
       end
 
       # -- common --
-
-      protected def readstring(each_proc)
-        string = each_proc.call
-        raise ::EOFError if string.nil?
-
-        string
-      end
 
       protected def each_string(each_proc, &block)
         return enum_for __method__, each_proc unless block.is_a? ::Proc
@@ -182,6 +175,13 @@ module ADSP
         end
 
         nil
+      end
+
+      protected def readstring(each_proc)
+        string = each_proc.call
+        raise ::EOFError if string.nil?
+
+        string
       end
 
       protected def ungetstring(string)
