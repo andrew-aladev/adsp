@@ -3,7 +3,6 @@
 
 require "English"
 
-require_relative "../error"
 require_relative "../validation"
 
 module ADSP
