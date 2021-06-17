@@ -7,7 +7,7 @@ module ADSP
   class Option
     DEFAULT_BUFFER_LENGTH = 0
 
-    def self.get_compressor_options(options, buffer_length_names)
+    def self.get_compressor_options(options, buffer_length_names = [])
       Validation.validate_hash options
       Validation.validate_array buffer_length_names
 
@@ -24,7 +24,7 @@ module ADSP
       options
     end
 
-    def self.get_decompressor_options(options, buffer_length_names)
+    def self.get_decompressor_options(options, buffer_length_names = [])
       Validation.validate_hash options
       Validation.validate_array buffer_length_names
 
