@@ -40,9 +40,11 @@ module ADSP
         @pos = 0
       end
 
+      # :nocov:
       protected def create_raw_stream
         raise NotImplementedError
       end
+      # :nocov:
 
       # -- buffer --
 

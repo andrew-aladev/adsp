@@ -11,9 +11,11 @@ module ADSP
       native_compress_string source, options
     end
 
+    # :nocov:
     protected def native_compress_string(source, options)
       raise NotImplementedError
     end
+    # :nocov:
 
     def self.decompress(source, options = {})
       Validation.validate_string source
@@ -21,8 +23,10 @@ module ADSP
       native_decompress_string source, options
     end
 
+    # :nocov:
     protected def native_decompress_string(source, options)
       raise NotImplementedError
     end
+    # :nocov:
   end
 end

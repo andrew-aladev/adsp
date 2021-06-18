@@ -11,9 +11,11 @@ module ADSP
           super create_native_stream(options)
         end
 
+        # :nocov:
         protected def create_native_stream(options)
           raise NotImplementedError
         end
+        # :nocov:
 
         def read(source, &writer)
           do_not_use_after_close

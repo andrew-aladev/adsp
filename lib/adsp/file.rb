@@ -16,9 +16,11 @@ module ADSP
       nil
     end
 
+    # :nocov:
     protected def native_compress_io(source_io, destination_io, options)
       raise NotImplementedError
     end
+    # :nocov:
 
     def self.decompress(source, destination, options = {})
       Validation.validate_string source
@@ -31,9 +33,11 @@ module ADSP
       nil
     end
 
+    # :nocov:
     protected def native_decompress_io(source_io, destination_io, options)
       raise NotImplementedError
     end
+    # :nocov:
 
     private_class_method def self.open_files(source, destination, &_block)
       ::File.open source, "rb" do |source_io|
