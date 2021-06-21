@@ -36,8 +36,8 @@ module ADSP
             end
 
             unless bytes_written == source.bytesize
-              # :nocov:
               # Compressor write should eat all provided "source" without remainder.
+              # :nocov:
               raise UnexpectedError, "unexpected error"
               # :nocov:
             end
