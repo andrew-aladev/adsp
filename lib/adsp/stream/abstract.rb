@@ -130,10 +130,27 @@ module ADSP
 
       # -- etc --
 
+      def reopen(*args)
+        @raw_stream = create_raw_stream
+
+        if @io.respond_to? :reopen
+          @io.reopen(*args)
+        else
+          @io = @io.class.open(*args)
+        end
+
+        reset_buffer
+        reset_io_advise
+
+        @pos = 0
+
+        self
+      end
+
       def rewind
         @raw_stream = create_raw_stream
 
-        @io.rewind if @io.respond_to? :rewind
+        @io.rewind
 
         reset_buffer
         reset_io_advise

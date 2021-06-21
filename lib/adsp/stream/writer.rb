@@ -41,6 +41,12 @@ module ADSP
         self
       end
 
+      def reopen(*args)
+        finish :close
+
+        super
+      end
+
       def rewind
         finish :close
 
@@ -92,6 +98,14 @@ module ADSP
         return false unless finish_nonblock :flush, *options
 
         @io.flush
+
+        true
+      end
+
+      def reopen_nonblock(other_io, mode = nil, *options)
+        return false unless finish_nonblock :close, *options
+
+        method(:reopen).super_method.call other_io, mode, *options
 
         true
       end

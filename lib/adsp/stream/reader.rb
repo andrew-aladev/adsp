@@ -68,6 +68,15 @@ module ADSP
         read_buffer out_buffer
       end
 
+      def reopen(*args)
+        raw_wrapper :close
+
+        reset_io_remainder
+        reset_need_to_flush
+
+        super
+      end
+
       def rewind
         raw_wrapper :close
 

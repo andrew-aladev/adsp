@@ -39,7 +39,6 @@ end
 # close_write
 # pread
 # pwrite
-# reopen
 # set_encoding_by_bom
 # sysread
 # sysseek
