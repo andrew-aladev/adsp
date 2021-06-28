@@ -38,6 +38,10 @@ module ADSP
       raise ValidateError, "invalid string" unless value.is_a? ::String
     end
 
+    def self.validate_string_or_integer(value)
+      raise ValidateError, "invalid string or integer" unless value.is_a?(::String) || value.is_a?(::Integer)
+    end
+
     def self.validate_symbol(value)
       raise ValidateError, "invalid symbol" unless value.is_a? ::Symbol
     end
