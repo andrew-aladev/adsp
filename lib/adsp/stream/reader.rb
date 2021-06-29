@@ -11,8 +11,6 @@ module ADSP
     class Reader < Abstract
       include ReaderHelpers
 
-      attr_accessor :lineno
-
       DEFAULT_SOURCE_BUFFER_LENGTH = 1 << 18 # 256 KB
 
       def initialize(source_io, options = {}, *args)

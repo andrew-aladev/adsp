@@ -1,17 +1,19 @@
 # Abstract data stream processor.
 # Copyright (c) 2021 AUTHORS, MIT License.
 
-require_relative "common"
-require_relative "../../validation"
+require_relative "char"
 
 module ADSP
   module Stream
     module ReaderHelpers
       module Codepoint
-        include Common
+        include Char
 
         def getcodepoint
-          getc.ord
+          char = getc
+          return nil if char.nil?
+
+          char.ord
         end
 
         def each_codepoint(&block)
@@ -25,7 +27,10 @@ module ADSP
         end
 
         def ungetcodepoint(code)
-          unget_string code.chr
+          Validation.validate_string_or_integer code
+
+          code = code.chr if code.is_a? ::Integer
+          unget_string code
         end
       end
     end

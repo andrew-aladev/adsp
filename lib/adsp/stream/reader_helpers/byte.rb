@@ -33,9 +33,8 @@ module ADSP
         def ungetbyte(byte)
           Validation.validate_string_or_integer byte
 
-          char = byte.chr if byte.is_a? ::Integer
-
-          @buffer.prepend char
+          byte = byte.chr if byte.is_a? ::Integer
+          @buffer.prepend byte
 
           nil
         end
