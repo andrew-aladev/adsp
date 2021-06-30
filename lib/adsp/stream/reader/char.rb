@@ -5,7 +5,7 @@ require_relative "byte"
 
 module ADSP
   module Stream
-    module ReaderHelpers
+    class Reader
       module Char
         include Byte
 

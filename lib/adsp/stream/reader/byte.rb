@@ -6,7 +6,7 @@ require_relative "../../validation"
 
 module ADSP
   module Stream
-    module ReaderHelpers
+    class Reader
       module Byte
         include Common
 

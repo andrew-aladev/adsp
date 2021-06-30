@@ -7,7 +7,7 @@ require_relative "char"
 
 module ADSP
   module Stream
-    module ReaderHelpers
+    class Reader
       module Line
         include Char
 

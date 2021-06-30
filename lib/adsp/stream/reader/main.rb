@@ -8,7 +8,7 @@ require_relative "line"
 
 module ADSP
   module Stream
-    module ReaderHelpers
+    class Reader
       include Byte
       include Char
       include Codepoint
