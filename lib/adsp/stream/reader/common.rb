@@ -29,6 +29,14 @@ module ADSP
 
         # -- IO data --
 
+        protected def reset_io_remainder
+          @io_remainder = ::String.new :encoding => ::Encoding::BINARY
+        end
+
+        protected def reset_need_to_flush
+          @need_to_flush = false
+        end
+
         protected def append_io_data(io_data)
           io_portion    = @io_remainder + io_data
           bytes_read    = raw_wrapper :read, io_portion

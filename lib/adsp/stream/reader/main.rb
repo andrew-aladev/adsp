@@ -5,6 +5,7 @@ require_relative "byte"
 require_relative "char"
 require_relative "codepoint"
 require_relative "line"
+require_relative "read"
 
 module ADSP
   module Stream
@@ -13,6 +14,7 @@ module ADSP
       include Char
       include Codepoint
       include Line
+      include Read
 
       module ClassMethods
         def open(file_path, *args, &block)
