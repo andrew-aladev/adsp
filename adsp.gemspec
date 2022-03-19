@@ -14,20 +14,24 @@ GEMSPEC = Gem::Specification.new do |gem|
   gem.authors  = File.read("AUTHORS").split("\n").reject(&:empty?)
   gem.email    = "aladjev.andrew@gmail.com"
   gem.version  = ADSP::VERSION
+  gem.metadata = {
+    "rubygems_mfa_required" => "true"
+  }
 
   gem.add_development_dependency "codecov"
   gem.add_development_dependency "json"
-  gem.add_development_dependency "minitest", "~> 5.14"
+  gem.add_development_dependency "minitest", "~> 5.15"
+  gem.add_development_dependency "ocg", "~> 1.4"
   gem.add_development_dependency "parallel"
   gem.add_development_dependency "rake"
-  gem.add_development_dependency "rubocop", "~> 1.22"
-  gem.add_development_dependency "rubocop-minitest", "~> 0.15"
-  gem.add_development_dependency "rubocop-performance", "~> 1.12"
+  gem.add_development_dependency "rubocop", "~> 1.26"
+  gem.add_development_dependency "rubocop-minitest", "~> 0.17"
+  gem.add_development_dependency "rubocop-performance", "~> 1.13"
   gem.add_development_dependency "rubocop-rake", "~> 0.6"
   gem.add_development_dependency "simplecov"
 
   gem.files =
-    `git ls-files -z --directory lib`.split("\x0") +
+    `find lib -type f -name "*.rb" -print0`.split("\x0") +
     %w[AUTHORS LICENSE README.md]
   gem.require_paths = %w[lib]
 
