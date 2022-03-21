@@ -4,6 +4,8 @@
 module ADSP
   class BaseError < ::StandardError; end
 
+  class ValidateError < BaseError; end
+
   class NotImplementedError < BaseError; end
-  class ValidateError       < BaseError; end
+  class UnexpectedError     < BaseError; end
 end
