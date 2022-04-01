@@ -1,13 +1,21 @@
 # Abstract data stream processor.
 # Copyright (c) 2021 AUTHORS, MIT License.
 
+require_relative "error"
+require_relative "option"
 require_relative "validation"
 
 module ADSP
   class File
+    Option = ADSP::Option
+
+    BUFFER_LENGTH_NAMES = %i[source_buffer_length destination_buffer_length].freeze
+
     def self.compress(source, destination, options = {})
       Validation.validate_string source
       Validation.validate_string destination
+
+      options = self::Option.get_compressor_options options, self::BUFFER_LENGTH_NAMES
 
       open_files source, destination do |source_io, destination_io|
         native_compress_io source_io, destination_io, options
@@ -17,7 +25,7 @@ module ADSP
     end
 
     # :nocov:
-    protected def native_compress_io(source_io, destination_io, options)
+    def self.native_compress_io(source_io, destination_io, options)
       raise NotImplementedError
     end
     # :nocov:
@@ -25,6 +33,8 @@ module ADSP
     def self.decompress(source, destination, options = {})
       Validation.validate_string source
       Validation.validate_string destination
+
+      options = self::Option.get_decompressor_options options, self::BUFFER_LENGTH_NAMES
 
       open_files source, destination do |source_io, destination_io|
         native_decompress_io source_io, destination_io, options
@@ -34,7 +44,7 @@ module ADSP
     end
 
     # :nocov:
-    protected def native_decompress_io(source_io, destination_io, options)
+    def self.native_decompress_io(source_io, destination_io, options)
       raise NotImplementedError
     end
     # :nocov:
