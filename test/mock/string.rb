@@ -10,11 +10,15 @@ module ADSP
     module Mock
       class String < ADSP::String
         def self.native_compress_string(source, _options)
-          Common.flip_bytes source
+          native_process_string source
         end
 
         def self.native_decompress_string(source, _options)
-          Common.flip_bytes source
+          native_process_string source
+        end
+
+        private_class_method def self.native_process_string(data)
+          Common.flip_bytes data
         end
       end
     end

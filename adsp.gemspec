@@ -25,7 +25,7 @@ GEMSPEC = Gem::Specification.new do |gem|
   gem.add_development_dependency "parallel"
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rubocop", "~> 1.26"
-  gem.add_development_dependency "rubocop-minitest", "~> 0.17"
+  gem.add_development_dependency "rubocop-minitest", "~> 0.18"
   gem.add_development_dependency "rubocop-performance", "~> 1.13"
   gem.add_development_dependency "rubocop-rake", "~> 0.6"
   gem.add_development_dependency "simplecov"
@@ -35,5 +35,5 @@ GEMSPEC = Gem::Specification.new do |gem|
     %w[AUTHORS LICENSE README.md]
   gem.require_paths = %w[lib]
 
-  gem.required_ruby_version = ">= 2.5"
+  gem.required_ruby_version = ">= 2.6"
 end

@@ -1,0 +1,66 @@
+name: test
+
+on:
+  - push
+
+jobs:
+  ubuntu:
+    strategy:
+      matrix:
+        ruby:
+          - 2.6
+          - 2.7
+          - 3.0
+          - 3.1
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: CI test
+        run: scripts/ci_test.sh
+        env:
+          CI: True
+
+  macos:
+    strategy:
+      matrix:
+        ruby:
+          - 2.6
+          - 2.7
+          - 3.0
+          - 3.1
+    runs-on: macos-11
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: CI test
+        run: scripts/ci_test.sh
+        env:
+          CI: True
+
+  windows-mingw:
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: msys2 "{0}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup msys2
+        uses: msys2/setup-msys2@v2
+        with:
+          install: >-
+            mingw-w64-x86_64-ruby
+      - name: CI test
+        run: scripts/ci_test.sh
+        env:
+          CI: True
+          MSYSTEM: MINGW64
