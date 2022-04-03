@@ -2,7 +2,7 @@
 # Copyright (c) 2021 AUTHORS, MIT License.
 
 require_relative "abstract"
-require_relative "abstract_native_decompressor"
+require_relative "native_decompressor"
 require_relative "../../option"
 require_relative "../../validation"
 
@@ -10,7 +10,7 @@ module ADSP
   module Stream
     module Raw
       class Decompressor < Abstract
-        NativeDecompressor = AbstractNativeDecompressor
+        NativeDecompressor = Raw::NativeDecompressor
         Option             = ADSP::Option
 
         BUFFER_LENGTH_NAMES = %i[destination_buffer_length].freeze

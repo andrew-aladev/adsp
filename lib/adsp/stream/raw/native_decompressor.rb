@@ -6,21 +6,13 @@ require_relative "../../error"
 module ADSP
   module Stream
     module Raw
-      class AbstractNativeCompressor
+      class NativeDecompressor
         # :nocov:
-        def write(source)
+        def read(source)
           raise NotImplementedError
         end
 
         def read_result
-          raise NotImplementedError
-        end
-
-        def flush
-          raise NotImplementedError
-        end
-
-        def finish
           raise NotImplementedError
         end
 
