@@ -4,7 +4,6 @@
 require "ocg"
 require "adsp/option"
 
-require_relative "common"
 require_relative "validation"
 
 module ADSP

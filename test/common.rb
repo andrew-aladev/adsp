@@ -103,7 +103,7 @@ module ADSP
       end
 
       def self.flip_bytes(data)
-        data.unpack("C").map { |byte| byte ^ 0xFF }.pack "C"
+        data.unpack("C*").map { |byte| byte ^ 0xFF }.pack "C*"
       end
     end
   end
