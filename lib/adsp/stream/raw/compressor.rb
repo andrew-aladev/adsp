@@ -2,20 +2,26 @@
 # Copyright (c) 2021 AUTHORS, MIT License.
 
 require_relative "abstract"
+require_relative "abstract_native_compressor"
+require_relative "../../error"
+require_relative "../../option"
+require_relative "../../validation"
 
 module ADSP
   module Stream
     module Raw
       class Compressor < Abstract
-        def initialize(options = {})
-          super create_native_stream(options)
-        end
+        NativeCompressor = AbstractNativeCompressor
+        Option           = ADSP::Option
 
-        # :nocov:
-        protected def create_native_stream(options)
-          raise NotImplementedError
+        BUFFER_LENGTH_NAMES = %i[destination_buffer_length].freeze
+
+        def initialize(options = {})
+          options       = self.class::Option.get_compressor_options options, BUFFER_LENGTH_NAMES
+          native_stream = self.class::NativeCompressor.new options
+
+          super native_stream
         end
-        # :nocov:
 
         def write(source, &writer)
           do_not_use_after_close

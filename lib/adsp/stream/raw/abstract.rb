@@ -1,6 +1,7 @@
 # Abstract data stream processor.
 # Copyright (c) 2021 AUTHORS, MIT License.
 
+require_relative "../../error"
 require_relative "../../validation"
 
 module ADSP
@@ -15,6 +16,10 @@ module ADSP
         # -- write --
 
         def flush(&writer)
+          do_not_use_after_close
+
+          Validation.validate_proc writer
+
           write_result(&writer)
 
           nil
@@ -22,7 +27,6 @@ module ADSP
 
         protected def more_destination(&writer)
           result_bytesize = write_result(&writer)
-
           raise NotEnoughDestinationError, "not enough destination" if result_bytesize.zero?
         end
 

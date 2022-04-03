@@ -9,16 +9,8 @@ module ADSP
       raise ValidateError, "invalid array" unless value.is_a? ::Array
     end
 
-    def self.validate_bool(value)
-      raise ValidateError, "invalid bool" unless value.is_a?(::TrueClass) || value.is_a?(::FalseClass)
-    end
-
     def self.validate_hash(value)
       raise ValidateError, "invalid hash" unless value.is_a? ::Hash
-    end
-
-    def self.validate_integer(value)
-      raise ValidateError, "invalid integer" unless value.is_a? ::Integer
     end
 
     def self.validate_not_negative_integer(value)

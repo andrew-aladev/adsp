@@ -14,7 +14,7 @@ module ADSP
       buffer_length_names.each { |name| Validation.validate_symbol name }
 
       buffer_length_defaults = buffer_length_names.each_with_object({}) do |name, defaults|
-        defaults[name] = self::DEFAULT_BUFFER_LENGTH
+        defaults[name] = DEFAULT_BUFFER_LENGTH
       end
 
       options = buffer_length_defaults.merge options
@@ -31,7 +31,7 @@ module ADSP
       buffer_length_names.each { |name| Validation.validate_symbol name }
 
       buffer_length_defaults = buffer_length_names.each_with_object({}) do |name, defaults|
-        defaults[name] = self::DEFAULT_BUFFER_LENGTH
+        defaults[name] = DEFAULT_BUFFER_LENGTH
       end
 
       options = buffer_length_defaults.merge options

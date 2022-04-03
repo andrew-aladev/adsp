@@ -34,12 +34,3 @@ module ADSP
     end
   end
 end
-
-# close_read
-# close_write
-# pread
-# pwrite
-# set_encoding_by_bom
-# sysread
-# sysseek
-# syswrite

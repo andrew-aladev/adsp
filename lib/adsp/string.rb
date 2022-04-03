@@ -14,7 +14,7 @@ module ADSP
     def self.compress(source, options = {})
       Validation.validate_string source
 
-      options = self::Option.get_compressor_options options, self::BUFFER_LENGTH_NAMES
+      options = self::Option.get_compressor_options options, BUFFER_LENGTH_NAMES
 
       native_compress_string source, options
     end
@@ -28,7 +28,7 @@ module ADSP
     def self.decompress(source, options = {})
       Validation.validate_string source
 
-      options = self::Option.get_decompressor_options options, self::BUFFER_LENGTH_NAMES
+      options = self::Option.get_decompressor_options options, BUFFER_LENGTH_NAMES
 
       native_decompress_string source, options
     end

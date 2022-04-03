@@ -10,15 +10,23 @@ module ADSP
     class Writer < Abstract
       include WriterHelpers
 
+      RawCompressor = Raw::Compressor
+
       def initialize(destination_io, options = {}, *args)
         @options = options
 
         super destination_io, *args
       end
 
+      protected def create_raw_stream
+        self.class::RawCompressor.new @options
+      end
+
       # -- synchronous --
 
       def write(*objects)
+        validate_write
+
         write_remaining_buffer
 
         bytes_written = 0
@@ -34,26 +42,26 @@ module ADSP
       end
 
       def flush
+        validate_write
+
         finish :flush
 
-        @io.flush
+        @io.flush if @io.respond_to? :flush
 
         self
       end
 
-      def reopen(*args)
-        finish :close
-
-        super
-      end
-
       def rewind
+        validate_write
+
         finish :close
 
         super
       end
 
       def close
+        validate_write
+
         finish :close
 
         super
@@ -77,6 +85,10 @@ module ADSP
         @raw_stream.send(method_name, *args) { |portion| @io.write portion }
       end
 
+      def validate_write
+        raise ValidateError, "io should be responsible to write" unless @io.respond_to? :write
+      end
+
       # -- asynchronous --
 
       # IO write nonblock can raise wait writable error.
@@ -85,6 +97,8 @@ module ADSP
       # So we have to accept content after processing IO write nonblock.
       # It means that first write nonblock won't call IO write nonblock.
       def write_nonblock(object, *options)
+        validate_write_nonblock
+
         return 0 unless write_remaining_buffer_nonblock(*options)
 
         source         = transcode object.to_s
@@ -95,22 +109,18 @@ module ADSP
       end
 
       def flush_nonblock(*options)
+        validate_write_nonblock
+
         return false unless finish_nonblock :flush, *options
 
-        @io.flush
-
-        true
-      end
-
-      def reopen_nonblock(other_io, mode = nil, *options)
-        return false unless finish_nonblock :close, *options
-
-        method(:reopen).super_method.call other_io, mode, *options
+        @io.flush if @io.respond_to? :flush
 
         true
       end
 
       def rewind_nonblock(*options)
+        validate_write_nonblock
+
         return false unless finish_nonblock :close, *options
 
         method(:rewind).super_method.call
@@ -119,6 +129,8 @@ module ADSP
       end
 
       def close_nonblock(*options)
+        validate_write_nonblock
+
         return false unless finish_nonblock :close, *options
 
         method(:close).super_method.call
@@ -147,6 +159,10 @@ module ADSP
 
       protected def raw_nonblock_wrapper(method_name, *args)
         @raw_stream.send(method_name, *args) { |portion| @buffer << portion }
+      end
+
+      def validate_write_nonblock
+        raise ValidateError, "io should be responsible to write nonblock" unless @io.respond_to? :write_nonblock
       end
 
       # -- common --

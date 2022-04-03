@@ -15,7 +15,7 @@ module ADSP
       Validation.validate_string source
       Validation.validate_string destination
 
-      options = self::Option.get_compressor_options options, self::BUFFER_LENGTH_NAMES
+      options = self::Option.get_compressor_options options, BUFFER_LENGTH_NAMES
 
       open_files source, destination do |source_io, destination_io|
         native_compress_io source_io, destination_io, options
@@ -34,7 +34,7 @@ module ADSP
       Validation.validate_string source
       Validation.validate_string destination
 
-      options = self::Option.get_decompressor_options options, self::BUFFER_LENGTH_NAMES
+      options = self::Option.get_decompressor_options options, BUFFER_LENGTH_NAMES
 
       open_files source, destination do |source_io, destination_io|
         native_decompress_io source_io, destination_io, options

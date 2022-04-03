@@ -6,6 +6,9 @@ module ADSP
 
   class ValidateError < BaseError; end
 
+  class NotEnoughDestinationError < BaseError; end
+  class UsedAfterCloseError       < BaseError; end
+
   class NotImplementedError < BaseError; end
   class UnexpectedError     < BaseError; end
 end

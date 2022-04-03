@@ -21,30 +21,18 @@ module ADSP
 
       alias tell pos
 
-      def initialize(io, encoding_options = {})
+      def initialize(io, options = {})
         @raw_stream = create_raw_stream
-
-        Validation.validate_io io
-        @io = io
+        @io         = io
 
         @stat = Stat.new @io.stat if @io.respond_to? :stat
 
-        set_encoding(
-          encoding_options[:external_encoding],
-          encoding_options[:internal_encoding],
-          encoding_options[:transcode_options]
-        )
+        set_encoding options[:external_encoding], options[:internal_encoding], options[:transcode_options]
         reset_buffer
         reset_io_advise
 
         @pos = 0
       end
-
-      # :nocov:
-      protected def create_raw_stream
-        raise NotImplementedError
-      end
-      # :nocov:
 
       # -- buffer --
 
@@ -130,27 +118,10 @@ module ADSP
 
       # -- etc --
 
-      def reopen(*args)
-        @raw_stream = create_raw_stream
-
-        if @io.respond_to? :reopen
-          @io.reopen(*args)
-        else
-          @io = @io.class.open(*args)
-        end
-
-        reset_buffer
-        reset_io_advise
-
-        @pos = 0
-
-        self
-      end
-
       def rewind
         @raw_stream = create_raw_stream
 
-        @io.rewind
+        @io.rewind if @io.respond_to? :rewind
 
         reset_buffer
         reset_io_advise
@@ -161,13 +132,19 @@ module ADSP
       end
 
       def close
-        @io.close
+        @io.close if @io.respond_to? :close
 
         nil
       end
 
       def closed?
-        @raw_stream.closed? && @io.closed?
+        return false unless @raw_stream.closed?
+
+        if @io.respond_to? :closed
+          @io.closed?
+        else
+          true
+        end
       end
 
       def to_io

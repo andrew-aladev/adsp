@@ -1,12 +1,12 @@
 # Abstract data stream processor.
 # Copyright (c) 2021 AUTHORS, MIT License.
 
-require_relative "../../validation"
+require_relative "../../error"
 
 module ADSP
   module Stream
     module Raw
-      class NativeCompressor
+      class AbstractNativeCompressor
         # :nocov:
         def write(source)
           raise NotImplementedError
