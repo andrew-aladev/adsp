@@ -25,11 +25,13 @@ module ADSP
       native_compress_string source, options
     end
 
-    # Internal method for compressing +source+ string using +options+.
     # :nocov:
+
+    # Internal method for compressing +source+ string using +options+.
     def self.native_compress_string(source, options)
       raise NotImplementedError
     end
+
     # :nocov:
 
     # Decompresses +source+ string using +options+.
@@ -43,11 +45,13 @@ module ADSP
       native_decompress_string source, options
     end
 
-    # Internal method for decompressing +source+ string using +options+.
     # :nocov:
+
+    # Internal method for decompressing +source+ string using +options+.
     def self.native_decompress_string(source, options)
       raise NotImplementedError
     end
+
     # :nocov:
   end
 end

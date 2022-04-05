@@ -30,11 +30,13 @@ module ADSP
       nil
     end
 
-    # Internal method for compressing data from +source_io+ file to +destination_io+ file.
     # :nocov:
+
+    # Internal method for compressing data from +source_io+ file to +destination_io+ file.
     def self.native_compress_io(source_io, destination_io, options)
       raise NotImplementedError
     end
+
     # :nocov:
 
     # Decompresses data from +source+ file path to +destination+ file path.
@@ -53,14 +55,15 @@ module ADSP
       nil
     end
 
-    # Internal method for decompressing data from +source_io+ file to +destination_io+ file.
     # :nocov:
+
+    # Internal method for decompressing data from +source_io+ file to +destination_io+ file.
     def self.native_decompress_io(source_io, destination_io, options)
       raise NotImplementedError
     end
+
     # :nocov:
 
-    # Internal method for opening +source+ file path and +destination+ file path.
     private_class_method def self.open_files(source, destination, &_block)
       ::File.open source, "rb" do |source_io|
         ::File.open destination, "wb" do |destination_io|

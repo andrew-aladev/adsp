@@ -52,6 +52,7 @@ module ADSP
           nil
         end
 
+        # Returns whether processor is closed.
         def closed?
           @is_closed
         end
