@@ -31,6 +31,8 @@ module ADSP
 
             destination_io.write result
           end
+
+          nil
         end
       end
     end
