@@ -57,6 +57,9 @@ for:
       - cmd: >-
           C:\msys64\usr\bin\bash -cl "
           pacman --sync --noconfirm --needed
+          git
+          make
+          mingw-w64-x86_64-gcc
           mingw-w64-x86_64-ruby
           "
     test_script:
