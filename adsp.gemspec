@@ -24,6 +24,7 @@ GEMSPEC = Gem::Specification.new do |gem|
   gem.add_development_dependency "ocg", "~> 1.4"
   gem.add_development_dependency "parallel"
   gem.add_development_dependency "rake"
+  gem.add_development_dependency "rdoc"
   gem.add_development_dependency "rubocop", "~> 1.26"
   gem.add_development_dependency "rubocop-minitest", "~> 0.19"
   gem.add_development_dependency "rubocop-performance", "~> 1.13"
