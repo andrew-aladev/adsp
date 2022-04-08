@@ -11,7 +11,7 @@ module ADSP
     Option = ADSP::Option
 
     # Current buffer length names.
-    # It can be used as compressor or decompressor options.
+    # It is a part of decompressor options.
     BUFFER_LENGTH_NAMES = %i[destination_buffer_length].freeze
 
     # Compresses +source+ string using +options+.

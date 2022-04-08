@@ -11,11 +11,18 @@ module ADSP
   module Stream
     module Raw
       class Compressor < Abstract
+        # Current native compressor class.
         NativeCompressor = Raw::NativeCompressor
-        Option           = ADSP::Option
 
+        # Current option class.
+        Option = ADSP::Option
+
+        # Current buffer length names.
+        # It is a part of compressor options.
         BUFFER_LENGTH_NAMES = %i[destination_buffer_length].freeze
 
+        # Initializes compressor.
+        # Option: +:destination_buffer_length+ should be more than 1.
         def initialize(options = {})
           options       = self.class::Option.get_compressor_options options, BUFFER_LENGTH_NAMES
           native_stream = self.class::NativeCompressor.new options
@@ -23,6 +30,8 @@ module ADSP
           super native_stream
         end
 
+        # Writes +source+ string, writes result using +writer+ proc.
+        # Returns amount of bytes written from +source+.
         def write(source, &writer)
           do_not_use_after_close
 
@@ -54,6 +63,7 @@ module ADSP
           total_bytes_written
         end
 
+        # Flushes compressor, writes result using +writer+ proc and closes compressor.
         def flush(&writer)
           do_not_use_after_close
 
@@ -73,6 +83,7 @@ module ADSP
           super
         end
 
+        # Finishes compressor, writes result using +writer+ proc and closes compressor.
         def close(&writer)
           return nil if closed?
 

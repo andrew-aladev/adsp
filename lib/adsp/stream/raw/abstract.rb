@@ -8,6 +8,7 @@ module ADSP
   module Stream
     module Raw
       class Abstract
+        # Initializes processor using +native_stream+.
         def initialize(native_stream)
           @native_stream = native_stream
           @is_closed     = false
@@ -15,6 +16,7 @@ module ADSP
 
         # -- write --
 
+        # Flushes processor and writes next result using +writer+ proc.
         def flush(&writer)
           do_not_use_after_close
 
@@ -25,11 +27,13 @@ module ADSP
           nil
         end
 
+        # Writes next result using +writer+ proc and frees destination buffer.
         protected def more_destination(&writer)
           result_bytesize = write_result(&writer)
           raise NotEnoughDestinationError, "not enough destination" if result_bytesize.zero?
         end
 
+        # Writes next result using block.
         protected def write_result(&_writer)
           result = @native_stream.read_result
           yield result
@@ -39,10 +43,12 @@ module ADSP
 
         # -- close --
 
+        # Raises error when processor is closed.
         protected def do_not_use_after_close
           raise UsedAfterCloseError, "used after close" if closed?
         end
 
+        # Writes next result using +writer+ proc and closes processor.
         def close(&writer)
           write_result(&writer)
 

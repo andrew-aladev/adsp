@@ -10,11 +10,18 @@ module ADSP
   module Stream
     module Raw
       class Decompressor < Abstract
+        # Current native decompressor class.
         NativeDecompressor = Raw::NativeDecompressor
-        Option             = ADSP::Option
 
+        # Current option class.
+        Option = ADSP::Option
+
+        # Current buffer length names.
+        # It is a part of decompressor options.
         BUFFER_LENGTH_NAMES = %i[destination_buffer_length].freeze
 
+        # Initializes decompressor.
+        # Option: +:destination_buffer_length+ should be more than 1.
         def initialize(options = {})
           options       = self.class::Option.get_decompressor_options options, BUFFER_LENGTH_NAMES
           native_stream = self.class::NativeDecompressor.new options
@@ -22,6 +29,8 @@ module ADSP
           super native_stream
         end
 
+        # Reads +source+ string, writes result using +writer+ proc.
+        # Returns amount of bytes read from +source+.
         def read(source, &writer)
           do_not_use_after_close
 
@@ -43,10 +52,10 @@ module ADSP
             break
           end
 
-          # Please remember that "total_bytes_read" can not be equal to "source.bytesize".
           total_bytes_read
         end
 
+        # Flushes decompressor, writes result using +writer+ proc and closes decompressor.
         def flush(&writer)
           do_not_use_after_close
 
@@ -55,6 +64,7 @@ module ADSP
           super
         end
 
+        # Writes result using +writer+ proc and closes decompressor.
         def close(&writer)
           return nil if closed?
 
