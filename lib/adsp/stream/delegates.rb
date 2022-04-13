@@ -6,6 +6,7 @@ require "forwardable"
 module ADSP
   module Stream
     module Delegates
+      # List of methods to be forwarded for native stream.
       DELEGATES = %i[
         autoclose=
         autoclose?
@@ -27,6 +28,7 @@ module ADSP
       ]
       .freeze
 
+      # Defines delegates for native stream after module included.
       def self.included(klass)
         klass.extend ::Forwardable
         klass.def_delegators :@io, *DELEGATES

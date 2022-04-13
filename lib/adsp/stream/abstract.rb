@@ -8,19 +8,39 @@ require_relative "../validation"
 module ADSP
   module Stream
     class Abstract
-      # Native stream is not seekable by design.
-      # Related methods like "seek" and "pos=" can't be implemented.
+      # Native stream is typically not seekable.
+      # We don't need to implement methods like "seek" and "pos=".
 
-      # It is not possible to maintain correspondance between bytes
-      # consumed from source and bytes written to destination by design.
-      # We will consume all source bytes and maintain buffer with remaining destination data.
+      # Typically we may not maintain correspondance between bytes
+      #   consumed from source and bytes written to destination.
+      # So we are going to consume all source bytes and
+      #   maintain buffer with remaining destination data.
 
       include Delegates
 
-      attr_reader :io, :stat, :external_encoding, :internal_encoding, :transcode_options, :pos
+      # Native stream.
+      attr_reader :io
 
+      # Native stream status info.
+      attr_reader :stat
+
+      # Encoding name for destination data.
+      attr_reader :external_encoding
+
+      # Encoding name for source data.
+      attr_reader :internal_encoding
+
+      # Transcode options for native stream.
+      attr_reader :transcode_options
+
+      # Current offset for source data.
+      attr_reader :pos
       alias tell pos
 
+      # Initializes stream using +io+ native stream and +options+.
+      # Option: +:external_encoding+ encoding name for destination data.
+      # Option: +:internal_encoding+ encoding name for source data.
+      # Option: +:transcode_options+ transcode options for data.
       def initialize(io, options = {})
         @raw_stream = create_raw_stream
         @io         = io
@@ -34,14 +54,21 @@ module ADSP
         @pos = 0
       end
 
+      # Creates data processor.
+      protected def create_raw_stream
+        raise NotImplementedError
+      end
+
       # -- buffer --
 
+      # Resets internal source buffer.
       protected def reset_buffer
         @buffer = ::String.new :encoding => ::Encoding::BINARY
       end
 
       # -- advise --
 
+      # Resets native stream advise.
       protected def reset_io_advise
         # Both compressor and decompressor need sequential io access.
         @io.advise :sequential if @io.respond_to? :advise
@@ -49,6 +76,7 @@ module ADSP
         # ok
       end
 
+      # Sets access mode for native stream, noop.
       def advise
         # Noop
         nil
@@ -56,6 +84,10 @@ module ADSP
 
       # -- encoding --
 
+      # Sets encoding for source and destination data.
+      # First argument: +:external_encoding+ encoding name for destination data.
+      # Second argument: +:internal_encoding+ encoding name for source data.
+      # Third argument: +:transcode_options+ transcode options for data.
       def set_encoding(*args)
         external_encoding, internal_encoding, transcode_options = process_set_encoding_arguments(*args)
 
@@ -66,6 +98,10 @@ module ADSP
         self
       end
 
+      # Processes encoding for source and destination data.
+      # First argument: +:external_encoding+ encoding name for destination data.
+      # Second argument: +:internal_encoding+ encoding name for source data.
+      # Third argument: +:transcode_options+ transcode options for data.
       protected def process_set_encoding_arguments(*args)
         external_encoding = args[0]
 
@@ -97,6 +133,7 @@ module ADSP
         [external_encoding, internal_encoding, transcode_options]
       end
 
+      # Sets +value+ for encoding +name+.
       protected def set_target_encoding(name, value)
         unless value.nil? || value.is_a?(::Encoding)
           begin
@@ -109,6 +146,9 @@ module ADSP
         instance_variable_set name, value
       end
 
+      # Returns encoding for source data if defined.
+      # Returns encoding for destination data if encoding for source data is not defined.
+      # Returns binary encoding if encodings for source and destination dara are not defined.
       protected def target_encoding
         return @internal_encoding unless @internal_encoding.nil?
         return @external_encoding unless @external_encoding.nil?
@@ -118,6 +158,8 @@ module ADSP
 
       # -- etc --
 
+      # Resets stream and source position.
+      # Returns zero (offset for source data).
       def rewind
         @raw_stream = create_raw_stream
 
@@ -131,12 +173,14 @@ module ADSP
         0
       end
 
+      # Closes stream.
       def close
         @io.close if @io.respond_to? :close
 
         nil
       end
 
+      # Returns whether stream is closed.
       def closed?
         return false unless @raw_stream.closed?
 
@@ -147,6 +191,7 @@ module ADSP
         end
       end
 
+      # Returns self object.
       def to_io
         self
       end
