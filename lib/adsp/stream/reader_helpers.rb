@@ -119,12 +119,14 @@ module ADSP
         lines
       end
 
+      # Yields each line.
       def each_line(&block)
         each_string method(:gets), &block
       end
 
       alias each each_line
 
+      # Pushes back +line+.
       def ungetline(line)
         ungetstring line
 
@@ -135,6 +137,8 @@ module ADSP
 
       # -- common --
 
+      # Returns string by +each_proc+.
+      # Raises +::EOFError+ when no data available.
       protected def readstring(each_proc)
         string = each_proc.call
         raise ::EOFError if string.nil?
@@ -142,6 +146,7 @@ module ADSP
         string
       end
 
+      # Yields each string by +each_proc+.
       protected def each_string(each_proc, &block)
         return enum_for __method__, each_proc unless block.is_a? ::Proc
 
@@ -155,6 +160,7 @@ module ADSP
         nil
       end
 
+      # Pushes back +string+.
       protected def ungetstring(string)
         Validation.validate_string string
 
@@ -169,7 +175,9 @@ module ADSP
 
       # -- etc --
 
+      # Additional class methods for reader.
       module ClassMethods
+        # Opens +file_path+ in binary mode, creates reader and yields it.
         def open(file_path, *args, &block)
           Validation.validate_string file_path
           Validation.validate_proc block
@@ -186,6 +194,7 @@ module ADSP
         end
       end
 
+      # Extends target +klass+ with additional class methods.
       def self.included(klass)
         klass.extend ClassMethods
       end

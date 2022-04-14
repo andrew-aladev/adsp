@@ -9,10 +9,9 @@ module ADSP
       # Libraries like minitar tries to access stat to know whether stream is seekable.
       # We need to mark stream as not directory, file, etc, because it is not seekable.
 
-      # User can use disabled delegates using :io reader.
-
       extend ::Forwardable
 
+      # List of methods returning false.
       METHODS_RETURNING_FALSE = %i[
         blockdev?
         chardev?
@@ -32,6 +31,7 @@ module ADSP
       ]
       .freeze
 
+      # List of methods to be forwarded for native stream status info.
       DELEGATES = %i[
         <=>
         atime
@@ -64,6 +64,7 @@ module ADSP
       ]
       .freeze
 
+      # Initializes status info based on native stream +stat+.
       def initialize(stat)
         @stat = stat
       end

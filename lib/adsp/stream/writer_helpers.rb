@@ -65,7 +65,9 @@ module ADSP
 
       # -- etc --
 
+      # Additional class methods for writer.
       module ClassMethods
+        # Opens +file_path+ in binary mode, creates writer and yields it.
         def open(file_path, *args, &block)
           Validation.validate_string file_path
           Validation.validate_proc block
@@ -82,6 +84,7 @@ module ADSP
         end
       end
 
+      # Extends target +klass+ with additional class methods.
       def self.included(klass)
         klass.extend ClassMethods
       end
