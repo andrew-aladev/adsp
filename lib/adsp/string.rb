@@ -15,7 +15,7 @@ module ADSP
     BUFFER_LENGTH_NAMES = %i[destination_buffer_length].freeze
 
     # Compresses +source+ string using +options+.
-    # Option: +:destination_buffer_length+ should be more than 1.
+    # Option: +:destination_buffer_length+ destination buffer length.
     # Returns compressed string.
     def self.compress(source, options = {})
       Validation.validate_string source
@@ -35,7 +35,7 @@ module ADSP
     # :nocov:
 
     # Decompresses +source+ string using +options+.
-    # Option: +:destination_buffer_length+ should be more than 1.
+    # Option: +:destination_buffer_length+ destination buffer length.
     # Returns decompressed string.
     def self.decompress(source, options = {})
       Validation.validate_string source

@@ -102,8 +102,15 @@ module ADSP
         true
       end
 
-      def self.flip_bytes(data)
-        data.unpack("C*").map { |byte| byte ^ 0xFF }.pack "C*"
+      # Flipping bytes and packing them as 16-bit values in network byte order.
+      # This method will make compressed data bytesize more than original bytesize.
+      # It will help to improve testing coverage.
+      def self.native_compress(data)
+        data.unpack("C*").map { |byte| byte ^ 0xFF }.pack "n*"
+      end
+
+      def self.native_decompress(data)
+        data.unpack("n*").map { |byte| byte ^ 0xFF }.pack "C*"
       end
     end
   end

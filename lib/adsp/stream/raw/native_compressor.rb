@@ -9,6 +9,12 @@ module ADSP
       class NativeCompressor
         # :nocov:
 
+        # Initializes native compressor.
+        # Option: +:destination_buffer_length+ destination buffer length.
+        def initialize(options)
+          raise NotImplementedError
+        end
+
         # Writes part of +source+ string.
         # Returns array of 2 values:
         # 1. number of bytes written from +source+.

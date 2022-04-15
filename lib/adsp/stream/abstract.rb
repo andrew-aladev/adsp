@@ -3,6 +3,7 @@
 
 require_relative "delegates"
 require_relative "stat"
+require_relative "../error"
 require_relative "../validation"
 
 module ADSP

@@ -15,8 +15,8 @@ module ADSP
     BUFFER_LENGTH_NAMES = %i[source_buffer_length destination_buffer_length].freeze
 
     # Compresses data from +source+ file path to +destination+ file path.
-    # Option: +:source_buffer_length+ should be more than 1.
-    # Option: +:destination_buffer_length+ should be more than 1.
+    # Option: +:source_buffer_length+ source buffer length.
+    # Option: +:destination_buffer_length+ destination buffer length.
     def self.compress(source, destination, options = {})
       Validation.validate_string source
       Validation.validate_string destination
@@ -40,8 +40,8 @@ module ADSP
     # :nocov:
 
     # Decompresses data from +source+ file path to +destination+ file path.
-    # Option: +:source_buffer_length+ should be more than 1.
-    # Option: +:destination_buffer_length+ should be more than 1.
+    # Option: +:source_buffer_length+ source buffer length.
+    # Option: +:destination_buffer_length+ destination buffer length.
     def self.decompress(source, destination, options = {})
       Validation.validate_string source
       Validation.validate_string destination

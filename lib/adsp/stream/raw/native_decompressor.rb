@@ -9,6 +9,12 @@ module ADSP
       class NativeDecompressor
         # :nocov:
 
+        # Initializes native decompressor.
+        # Option: +:destination_buffer_length+ destination buffer length.
+        def initialize(options)
+          raise NotImplementedError
+        end
+
         # Reads part of +source+ string.
         # Returns array of 2 values:
         # 1. number of bytes read from +source+.

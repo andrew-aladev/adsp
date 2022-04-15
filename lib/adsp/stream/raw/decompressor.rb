@@ -21,7 +21,7 @@ module ADSP
         BUFFER_LENGTH_NAMES = %i[destination_buffer_length].freeze
 
         # Initializes decompressor.
-        # Option: +:destination_buffer_length+ should be more than 1.
+        # Option: +:destination_buffer_length+ destination buffer length.
         def initialize(options = {})
           options       = self.class::Option.get_decompressor_options options, BUFFER_LENGTH_NAMES
           native_stream = self.class::NativeDecompressor.new options
