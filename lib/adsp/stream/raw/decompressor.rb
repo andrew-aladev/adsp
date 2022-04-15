@@ -65,6 +65,7 @@ module ADSP
         end
 
         # Writes result using +writer+ proc and closes decompressor.
+        # Raises +UsedAfterCloseError+ when used after close.
         def close(&writer)
           return nil if closed?
 

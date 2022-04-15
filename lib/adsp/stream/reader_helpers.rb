@@ -8,18 +8,23 @@ require_relative "../validation"
 module ADSP
   module Stream
     module ReaderHelpers
+      # Returns next byte.
       def getbyte
         read 1
       end
 
+      # Yields each byte.
       def each_byte(&block)
         each_string method(:getbyte), &block
       end
 
+      # Returns next byte.
+      # Raises +::EOFError+ when no data available.
       def readbyte
         readstring method(:getbyte)
       end
 
+      # Pushes back +byte+.
       def ungetbyte(byte)
         Validation.validate_string byte
 
@@ -30,6 +35,7 @@ module ADSP
 
       # -- char --
 
+      # Returns next char.
       def getc
         if @external_encoding.nil?
           byte = getbyte
@@ -54,20 +60,26 @@ module ADSP
         end
       end
 
+      # Returns next char.
+      # Raises +::EOFError+ when no data available.
       def readchar
         readstring method(:getc)
       end
 
+      # Yields each char.
       def each_char(&block)
         each_string method(:getc), &block
       end
 
+      # Pushes back +char+.
       def ungetc(char)
         ungetstring char
       end
 
       # -- lines --
 
+      # Returns next line by +separator+.
+      # Line length is limited by +limit+.
       def gets(separator = $OUTPUT_RECORD_SEPARATOR, limit = nil)
         # Limit can be a first argument.
         if separator.is_a? ::Numeric
@@ -108,10 +120,13 @@ module ADSP
         line
       end
 
+      # Returns next line.
+      # Raises +::EOFError+ when no data available.
       def readline
         readstring method(:gets)
       end
 
+      # Returns all available lines.
       def readlines
         lines = []
         each_line { |line| lines << line }
@@ -137,7 +152,7 @@ module ADSP
 
       # -- common --
 
-      # Returns string by +each_proc+.
+      # Returns next string by +each_proc+.
       # Raises +::EOFError+ when no data available.
       protected def readstring(each_proc)
         string = each_proc.call

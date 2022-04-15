@@ -54,7 +54,7 @@ module ADSP
         @pos = 0
       end
 
-      # Creates data processor.
+      # Creates raw stream.
       protected def create_raw_stream
         raise NotImplementedError
       end

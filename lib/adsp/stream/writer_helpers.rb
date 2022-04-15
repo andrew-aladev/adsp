@@ -8,10 +8,14 @@ require_relative "../validation"
 module ADSP
   module Stream
     module WriterHelpers
+      # Writes +object+ to stream.
       def <<(object)
         write object
       end
 
+      # Writes +objects+ to stream.
+      # Uses +field_separator+ for each object.
+      # Uses +record_separator+ for group of objects.
       def print(*objects, field_separator: $OUTPUT_FIELD_SEPARATOR, record_separator: $OUTPUT_RECORD_SEPARATOR)
         objects.each do |object|
           write object
@@ -23,12 +27,15 @@ module ADSP
         nil
       end
 
+      # Formats each argument and writes to stream.
       def printf(*args)
         write sprintf(*args)
 
         nil
       end
 
+      # Writes first char of +object+ to stream.
+      # Numeric object uses +encoding+ for providing first char.
       def putc(object, encoding: ::Encoding::BINARY)
         case object
         when ::Numeric
@@ -42,6 +49,7 @@ module ADSP
         object
       end
 
+      # Writes +objects+ to stream.
       def puts(*objects)
         objects.each do |object|
           if object.is_a? ::Array

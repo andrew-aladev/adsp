@@ -8,7 +8,7 @@ module ADSP
   module Stream
     module Raw
       class Abstract
-        # Initializes processor using +native_stream+.
+        # Initializes raw stream using +native_stream+.
         def initialize(native_stream)
           @native_stream = native_stream
           @is_closed     = false
@@ -16,7 +16,7 @@ module ADSP
 
         # -- write --
 
-        # Flushes processor and writes next result using +writer+ proc.
+        # Flushes raw stream and writes next result using +writer+ proc.
         def flush(&writer)
           do_not_use_after_close
 
@@ -43,12 +43,12 @@ module ADSP
 
         # -- close --
 
-        # Raises error when processor is closed.
+        # Raises error when raw stream is closed.
         protected def do_not_use_after_close
           raise UsedAfterCloseError, "used after close" if closed?
         end
 
-        # Writes next result using +writer+ proc and closes processor.
+        # Writes next result using +writer+ proc and closes raw stream.
         def close(&writer)
           write_result(&writer)
 
@@ -58,7 +58,7 @@ module ADSP
           nil
         end
 
-        # Returns whether processor is closed.
+        # Returns whether raw stream is closed.
         def closed?
           @is_closed
         end

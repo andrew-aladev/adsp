@@ -25,6 +25,7 @@ module ADSP
         end
 
         # Closes decompressor and cleans up internal resources.
+        # Raises +UsedAfterCloseError+ when used after close.
         def close
           raise NotImplementedError
         end

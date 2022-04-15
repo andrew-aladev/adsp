@@ -10,20 +10,27 @@ module ADSP
     class Writer < Abstract
       include WriterHelpers
 
+      # Current raw stream class.
       RawCompressor = Raw::Compressor
 
+      # Initializes stream using +destination_io+ native stream and +options+.
+      # Option: +:external_encoding+ encoding name for destination data.
+      # Option: +:internal_encoding+ encoding name for source data.
+      # Option: +:transcode_options+ transcode options for data.
       def initialize(destination_io, options = {}, *args)
         @options = options
 
         super destination_io, *args
       end
 
+      # Creates raw stream.
       protected def create_raw_stream
         self.class::RawCompressor.new @options
       end
 
       # -- synchronous --
 
+      # Writes +objects+ to stream.
       def write(*objects)
         validate_write
 
@@ -41,6 +48,7 @@ module ADSP
         bytes_written
       end
 
+      # Flushes stream.
       def flush
         validate_write
 
@@ -51,6 +59,7 @@ module ADSP
         self
       end
 
+      # Resets stream.
       def rewind
         validate_write
 
@@ -59,6 +68,7 @@ module ADSP
         super
       end
 
+      # Closes stream.
       def close
         validate_write
 
@@ -67,12 +77,14 @@ module ADSP
         super
       end
 
+      # Finishes stream using +method_name+.
       protected def finish(method_name)
         write_remaining_buffer
 
         raw_wrapper method_name
       end
 
+      # Writes remaining buffer and resets it.
       protected def write_remaining_buffer
         return nil if @buffer.bytesize.zero?
 
@@ -81,21 +93,25 @@ module ADSP
         reset_buffer
       end
 
+      # Wraps +method_name+ for raw stream.
       protected def raw_wrapper(method_name, *args)
         @raw_stream.send(method_name, *args) { |portion| @io.write portion }
       end
 
-      def validate_write
+      # Validates native stream responsibility to +write+ method.
+      protected def validate_write
         raise ValidateError, "io should be responsible to write" unless @io.respond_to? :write
       end
 
       # -- asynchronous --
 
-      # IO write nonblock can raise wait writable error.
+      # Writes +object+ nonblock.
+      # +options+ will be passed to native stream.
+      # Native stream +write_nonblock+ can raise +IO::WaitWritable+ error.
       # After resolving this error user may provide same content again.
       # It is not possible to revert accepted content after error.
-      # So we have to accept content after processing IO write nonblock.
-      # It means that first write nonblock won't call IO write nonblock.
+      # So we have to accept content after processing native stream +write_nonblock+.
+      # It means that first write nonblock won't call native stream +write_nonblock+.
       def write_nonblock(object, *options)
         validate_write_nonblock
 
@@ -108,6 +124,8 @@ module ADSP
         bytes_written
       end
 
+      # Flushes stream nonblock.
+      # +options+ will be passed to native stream.
       def flush_nonblock(*options)
         validate_write_nonblock
 
@@ -118,6 +136,8 @@ module ADSP
         true
       end
 
+      # Resets stream nonblock.
+      # +options+ will be passed to native stream.
       def rewind_nonblock(*options)
         validate_write_nonblock
 
@@ -128,6 +148,8 @@ module ADSP
         true
       end
 
+      # Closes stream nonblock.
+      # +options+ will be passed to native stream.
       def close_nonblock(*options)
         validate_write_nonblock
 
@@ -138,6 +160,8 @@ module ADSP
         true
       end
 
+      # Finishes stream using +method_name+ nonblock.
+      # +options+ will be passed to native stream.
       protected def finish_nonblock(method_name, *options)
         return false unless write_remaining_buffer_nonblock(*options)
 
@@ -146,6 +170,8 @@ module ADSP
         write_remaining_buffer_nonblock(*options)
       end
 
+      # Writes remaining buffer nonblock.
+      # +options+ will be passed to native stream.
       protected def write_remaining_buffer_nonblock(*options)
         return true if @buffer.bytesize.zero?
 
@@ -157,16 +183,19 @@ module ADSP
         @buffer.bytesize.zero?
       end
 
+      # Wraps nonblock +method_name+ for raw stream.
       protected def raw_nonblock_wrapper(method_name, *args)
         @raw_stream.send(method_name, *args) { |portion| @buffer << portion }
       end
 
-      def validate_write_nonblock
+      # Validates native stream responsibility to +write_nonblock+ method.
+      protected def validate_write_nonblock
         raise ValidateError, "io should be responsible to write nonblock" unless @io.respond_to? :write_nonblock
       end
 
       # -- common --
 
+      # Transcodes +data+ to external encoding.
       protected def transcode(data)
         data = data.encode @external_encoding, **@transcode_options unless @external_encoding.nil?
         data
