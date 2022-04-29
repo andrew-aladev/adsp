@@ -12,33 +12,43 @@ module ADSP
         PORTION_LENGTH = 10**6
 
         def self.native_compress_io(source_io, destination_io, _options)
+          data = "".b
+
           loop do
             begin
-              data = source_io.readpartial PORTION_LENGTH
+              data << source_io.readpartial(PORTION_LENGTH)
             rescue ::EOFError
               break
             end
 
-            result = Common.native_compress data
+            result, remainder = Common.native_compress data
+            data = remainder
 
             destination_io.write result
           end
+
+          raise ValidateError, "data is not empty" unless data.empty?
 
           nil
         end
 
         def self.native_decompress_io(source_io, destination_io, _options)
+          data = "".b
+
           loop do
             begin
-              data = source_io.readpartial PORTION_LENGTH
+              data << source_io.readpartial(PORTION_LENGTH)
             rescue ::EOFError
               break
             end
 
-            result = Common.native_decompress data
+            result, remainder = Common.native_decompress data
+            data = remainder
 
             destination_io.write result
           end
+
+          raise ValidateError, "data is not empty" unless data.empty?
 
           nil
         end

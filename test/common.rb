@@ -106,11 +106,20 @@ module ADSP
       # This method will make compressed data bytesize more than original bytesize.
       # It will help to improve testing coverage.
       def self.native_compress(data)
-        data.unpack("C*").map { |byte| byte ^ 0xFF }.pack "n*"
+        result    = data.unpack("C*").map { |byte| byte ^ 0xFF }.pack "n*"
+        remainder = ""
+        [result, remainder]
       end
 
       def self.native_decompress(data)
-        data.unpack("n*").map { |byte| byte ^ 0xFF }.pack "C*"
+        result    = data.unpack("n*").map { |byte| byte ^ 0xFF }.pack "C*"
+        remainder =
+          if data.bytesize.odd?
+            data.byteslice(-1, 1)
+          else
+            ""
+          end
+        [result, remainder]
       end
     end
   end

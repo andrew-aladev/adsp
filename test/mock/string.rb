@@ -10,11 +10,17 @@ module ADSP
     module Mock
       class String < ADSP::String
         def self.native_compress_string(source, _options)
-          Common.native_compress source
+          result, remainder = Common.native_compress source
+          raise ValidateError, "remainder is not empty" unless remainder.empty?
+
+          result
         end
 
         def self.native_decompress_string(source, _options)
-          Common.native_compress source
+          result, remainder = Common.native_decompress source
+          raise ValidateError, "remainder is not empty" unless remainder.empty?
+
+          result
         end
       end
     end
