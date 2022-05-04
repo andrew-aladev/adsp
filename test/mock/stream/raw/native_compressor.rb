@@ -3,7 +3,7 @@
 
 require "adsp/error"
 
-require_relative "../../../common"
+require_relative "../../common"
 
 module ADSP
   module Test
@@ -12,10 +12,24 @@ module ADSP
         module Raw
           class NativeCompressor
             def initialize(options)
+              @source_remainder          = "".b
               @destination_buffer        = "".b
               @destination_buffer_length = options[:destination_buffer_length]
 
               @is_closed = false
+            end
+
+            def write(source)
+              do_not_use_after_close
+
+              result, remainder = Common.native_compress(@source_remainder + source)
+              bytes_written     = [
+                0,
+                source.bytesize - remainder.bytesize - @source_remainder.bytesize
+              ].max
+              @source_remainder = remainder
+
+              [bytes_written]
             end
 
             def read_result
@@ -25,6 +39,14 @@ module ADSP
               @destination_buffer = "".b
 
               result
+            end
+
+            def flush
+              do_not_use_after_close
+            end
+
+            def finish
+              do_not_use_after_close
             end
 
             def close

@@ -32,7 +32,7 @@ module ADSP
       # "0" means default buffer length.
       BUFFER_LENGTHS = [
         0,
-        1
+        2
       ]
       .freeze
 

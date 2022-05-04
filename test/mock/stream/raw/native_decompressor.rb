@@ -3,7 +3,7 @@
 
 require "adsp/error"
 
-require_relative "../../../common"
+require_relative "../../common"
 
 module ADSP
   module Test
@@ -19,11 +19,12 @@ module ADSP
             end
 
             def read(source)
-              bytes_read             = @destination_buffer_length - @destination_buffer.bytesize
-              needs_more_destination = !bytes_read == source.bytesize
+              do_not_use_after_close
 
-              portion = source.byteslice 0, bytes_read
-              @destination_buffer << Common.flip_bytes(portion)
+              remaining_destination_buffer_length = @destination_buffer_length - @destination_buffer.bytesize
+              data, bytes_read = Common.native_decompress source, remaining_destination_buffer_length
+              needs_more_destination = bytes_read != source.bytesize
+              @destination_buffer << data
 
               [bytes_read, needs_more_destination]
             end
