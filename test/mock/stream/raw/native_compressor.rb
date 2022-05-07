@@ -2,6 +2,7 @@
 # Copyright (c) 2021 AUTHORS, MIT License.
 
 require "adsp/error"
+require "adsp/validation"
 
 require_relative "../../common"
 
@@ -12,24 +13,31 @@ module ADSP
         module Raw
           class NativeCompressor
             def initialize(options)
-              @source_remainder          = "".b
+              ADSP::Validation.validate_hash options
+
+              destination_buffer_length = options[:destination_buffer_length]
+              ADSP::Validation.validate_not_negative_integer destination_buffer_length
+
+              destination_buffer_length = Common::DEFAULT_DESTINATION_BUFFER_LENGTH \
+                if destination_buffer_length.zero?
+
               @destination_buffer        = "".b
-              @destination_buffer_length = options[:destination_buffer_length]
+              @destination_buffer_length = destination_buffer_length
 
               @is_closed = false
             end
 
             def write(source)
+              ADSP::Validation.validate_string source
+
               do_not_use_after_close
 
-              result, remainder = Common.native_compress(@source_remainder + source)
-              bytes_written     = [
-                0,
-                source.bytesize - remainder.bytesize - @source_remainder.bytesize
-              ].max
-              @source_remainder = remainder
+              remaining_destination_buffer_length = @destination_buffer_length - @destination_buffer.bytesize
+              data, bytes_read = Common.native_compress source, remaining_destination_buffer_length
+              needs_more_destination = bytes_read < source.bytesize
+              @destination_buffer << data
 
-              [bytes_written]
+              [bytes_read, needs_more_destination]
             end
 
             def read_result
@@ -43,10 +51,14 @@ module ADSP
 
             def flush
               do_not_use_after_close
+
+              nil
             end
 
             def finish
               do_not_use_after_close
+
+              nil
             end
 
             def close
