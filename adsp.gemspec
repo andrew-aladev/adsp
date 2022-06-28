@@ -20,6 +20,7 @@ GEMSPEC = Gem::Specification.new do |gem|
 
   gem.add_development_dependency "codecov"
   gem.add_development_dependency "json"
+  gem.add_development_dependency "minitar", "~> 0.9"
   gem.add_development_dependency "minitest", "~> 5.16"
   gem.add_development_dependency "ocg", "~> 1.4"
   gem.add_development_dependency "parallel"

@@ -8,7 +8,7 @@ require_relative "minitest"
 module ADSP
   module Test
     class Version < Minitest::Test
-      def test_versions
+      def test_version
         refute_nil ADSP::VERSION
       end
     end

@@ -33,6 +33,8 @@ module ADSP
               do_not_use_after_close
 
               remaining_destination_buffer_length = @destination_buffer_length - @destination_buffer.bytesize
+              return [0, true] if remaining_destination_buffer_length.zero?
+
               data, bytes_read = Common.native_decompress source, remaining_destination_buffer_length
               needs_more_destination = bytes_read < source.bytesize
               @destination_buffer << data
