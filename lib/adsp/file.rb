@@ -6,6 +6,7 @@ require_relative "option"
 require_relative "validation"
 
 module ADSP
+  # ADSP::File class.
   class File
     # Current option class.
     Option = ADSP::Option

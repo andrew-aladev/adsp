@@ -5,6 +5,7 @@ require "forwardable"
 
 module ADSP
   module Stream
+    # ADSP::Stream::Delegates class.
     module Delegates
       # List of methods to be forwarded for native stream.
       DELEGATES = %i[

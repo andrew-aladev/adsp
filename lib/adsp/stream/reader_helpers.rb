@@ -7,6 +7,7 @@ require_relative "../validation"
 
 module ADSP
   module Stream
+    # ADSP::Stream::ReaderHelpers module.
     module ReaderHelpers
       # Returns next byte.
       def getbyte

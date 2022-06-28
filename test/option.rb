@@ -36,6 +36,12 @@ module ADSP
       ]
       .freeze
 
+      BOOLS = [
+        true,
+        false
+      ]
+      .freeze
+
       private_class_method def self.get_buffer_length_option_generator(buffer_length_names)
         OCG.new(
           buffer_length_names.to_h { |name| [name, self::BUFFER_LENGTHS] }

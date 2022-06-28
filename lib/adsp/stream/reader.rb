@@ -8,6 +8,7 @@ require_relative "../validation"
 
 module ADSP
   module Stream
+    # ADSP::Stream::Reader class.
     class Reader < Abstract
       include ReaderHelpers
 

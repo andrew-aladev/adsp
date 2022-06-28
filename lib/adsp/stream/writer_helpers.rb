@@ -7,6 +7,7 @@ require_relative "../validation"
 
 module ADSP
   module Stream
+    # ADSP::Stream::WriterHelpers module.
     module WriterHelpers
       # Writes +object+ to stream.
       def <<(object)

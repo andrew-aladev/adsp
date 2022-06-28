@@ -4,6 +4,7 @@
 require_relative "error"
 
 module ADSP
+  # ADSP::Validation class.
   class Validation
     # Raises error when +value+ is not array.
     def self.validate_array(value)

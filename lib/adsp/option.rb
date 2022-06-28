@@ -4,6 +4,7 @@
 require_relative "validation"
 
 module ADSP
+  # ADSP::Option class.
   class Option
     # Current default buffer length.
     # It will be used when buffer length option is not defined.

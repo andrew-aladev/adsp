@@ -3,10 +3,10 @@
 
 require "minitar"
 
-require_relative "../mock/stream/reader"
-require_relative "../mock/stream/writer"
 require_relative "../common"
 require_relative "../minitest"
+require_relative "../mock/stream/reader"
+require_relative "../mock/stream/writer"
 
 module ADSP
   module Test

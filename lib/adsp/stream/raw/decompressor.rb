@@ -9,6 +9,7 @@ require_relative "../../validation"
 module ADSP
   module Stream
     module Raw
+      # ADSP::Stream::Raw::Decompressor class.
       class Decompressor < Abstract
         # Current native decompressor class.
         NativeDecompressor = Raw::NativeDecompressor

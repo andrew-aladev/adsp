@@ -5,6 +5,7 @@ require "forwardable"
 
 module ADSP
   module Stream
+    # ADSP::Stream::Stat class.
     class Stat
       # Libraries like minitar tries to access stat to know whether stream is seekable.
       # We need to mark stream as not directory, file, etc, because it is not seekable.

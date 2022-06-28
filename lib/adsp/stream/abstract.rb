@@ -8,6 +8,7 @@ require_relative "../validation"
 
 module ADSP
   module Stream
+    # ADSP::Stream::Abstract class.
     class Abstract
       # Native stream is typically not seekable.
       # We don't need to implement methods like "seek" and "pos=".

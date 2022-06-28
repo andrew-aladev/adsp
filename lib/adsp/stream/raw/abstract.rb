@@ -7,6 +7,7 @@ require_relative "../../validation"
 module ADSP
   module Stream
     module Raw
+      # ADSP::Stream::Raw::Abstract class.
       class Abstract
         # Initializes raw stream using +native_stream+.
         def initialize(native_stream)

@@ -20,5 +20,6 @@ rm -f "Gemfile.lock"
   cd \"$ROOT_DIR\" && \
   gem install bundler --force && \
   bundle update && \
-  bundle exec rubocop \
+  bundle exec rubocop && \
+  bundle exec rake rdoc \
 "

@@ -2,6 +2,5 @@ build/*
 coverage
 Gemfile.lock
 pkg
-rdoc
 tmp/*
 *.gem

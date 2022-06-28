@@ -6,6 +6,7 @@ require_relative "../../error"
 module ADSP
   module Stream
     module Raw
+      # ADSP::Stream::Raw::NativeCompressor class.
       class NativeCompressor
         # :nocov:
 

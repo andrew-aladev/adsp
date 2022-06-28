@@ -7,6 +7,7 @@ require_relative "writer_helpers"
 
 module ADSP
   module Stream
+    # ADSP::Stream::Writer class.
     class Writer < Abstract
       include WriterHelpers
 
