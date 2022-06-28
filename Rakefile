@@ -14,7 +14,7 @@ end
 RDoc::Task.new do |rdoc|
   rdoc.title    = "ADSP rdoc"
   rdoc.main     = "README.md"
-  rdoc.rdoc_dir = "rdoc"
+  rdoc.rdoc_dir = "docs"
   rdoc.rdoc_files.include "lib/**/*.rb", "AUTHORS", "LICENSE", "README.md"
 end
 
