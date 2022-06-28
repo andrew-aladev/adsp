@@ -25,6 +25,8 @@ module ADSP
               @destination_buffer_length = destination_buffer_length
 
               @is_closed = false
+
+              @lock = Mutex.new
             end
 
             def write(source)
@@ -32,21 +34,23 @@ module ADSP
 
               do_not_use_after_close
 
-              remaining_destination_buffer_length = @destination_buffer_length - @destination_buffer.bytesize
-              return [0, true] if remaining_destination_buffer_length.zero?
+              @lock.synchronize do
+                remaining_destination_buffer_length = @destination_buffer_length - @destination_buffer.bytesize
+                return [0, true] if remaining_destination_buffer_length.zero?
 
-              data, bytes_read = Common.native_compress source, remaining_destination_buffer_length
-              needs_more_destination = bytes_read < source.bytesize
-              @destination_buffer << data
+                data, bytes_read = Common.native_compress source, remaining_destination_buffer_length
+                needs_more_destination = bytes_read < source.bytesize
+                @destination_buffer << data
 
-              [bytes_read, needs_more_destination]
+                [bytes_read, needs_more_destination]
+              end
             end
 
             def read_result
               do_not_use_after_close
 
-              result              = @destination_buffer
-              @destination_buffer = "".b
+              result = @destination_buffer
+              @lock.synchronize { @destination_buffer = "".b }
 
               result
             end
@@ -66,7 +70,7 @@ module ADSP
             def close
               do_not_use_after_close
 
-              @is_closed = true
+              @lock.synchronize { @is_closed = true }
 
               nil
             end
