@@ -1,6 +1,5 @@
 build/*
 coverage
-docs/created.rid
 Gemfile.lock
 pkg
 tmp/*
