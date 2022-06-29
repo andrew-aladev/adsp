@@ -5,6 +5,8 @@ require "parallel"
 require "securerandom"
 require "tempfile"
 
+require_relative "coverage_helper"
+
 module ADSP
   module Test
     module Common

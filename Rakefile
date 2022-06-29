@@ -8,7 +8,7 @@ Rake::TestTask.new do |task|
   task.libs << %w[lib]
 
   pathes          = `find test | grep "\.test\.rb$"`
-  task.test_files = ["test/coverage.rb"] + pathes.split("\n")
+  task.test_files = pathes.split("\n")
 end
 
 RDoc::Task.new do |rdoc|
