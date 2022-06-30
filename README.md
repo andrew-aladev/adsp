@@ -206,7 +206,7 @@ Behaviour is the same as `IO#write_nonblock` method.
 #<<(object)
 #print(*objects)
 #printf(*args)
-#putc(object, encoding: ::Encoding::BINARY)
+#putc(object, :encoding => 'ASCII-8BIT')
 #puts(*objects)
 ```
 
