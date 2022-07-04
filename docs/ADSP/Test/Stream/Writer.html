@@ -169,7 +169,7 @@
             </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-keyword">super</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
 
@@ -200,7 +200,7 @@
           
 
           <div class="method-source-code" id="get_compatible_decompressor_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 604</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 603</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_compatible_decompressor_options</span>(<span class="ruby-identifier">compressor_options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_compatible_decompressor_options</span> <span class="ruby-identifier">compressor_options</span>, <span class="ruby-constant">BUFFER_LENGTH_MAPPING</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
@@ -221,7 +221,7 @@
           
 
           <div class="method-source-code" id="get_invalid_compressor_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 596</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 595</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_invalid_compressor_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_invalid_compressor_options</span> <span class="ruby-constant">BUFFER_LENGTH_NAMES</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
@@ -242,7 +242,7 @@
           
 
           <div class="method-source-code" id="parallel_compressor_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 600</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 599</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parallel_compressor_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-constant">Common</span>.<span class="ruby-identifier">parallel_options</span> <span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_compressor_options_generator</span>(<span class="ruby-constant">BUFFER_LENGTH_NAMES</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
@@ -263,7 +263,7 @@
           
 
           <div class="method-source-code" id="test_encoding-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 147</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 146</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_encoding</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span><span class="ruby-operator">|</span>
     <span class="ruby-constant">TEXTS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">text</span><span class="ruby-operator">|</span>
@@ -323,7 +323,7 @@
             </div>
 
           <div class="method-source-code" id="test_invalid_initialize-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 55</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_initialize</span>
   <span class="ruby-identifier">get_invalid_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">invalid_options</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
@@ -350,7 +350,7 @@
           
 
           <div class="method-source-code" id="test_invalid_rewind_nonblock-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 392</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 391</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_rewind_nonblock</span>
   <span class="ruby-identifier">instance</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">Validation</span><span class="ruby-operator">::</span><span class="ruby-constant">StringIOWithoutWriteNonblock</span>.<span class="ruby-identifier">new</span>
 
@@ -375,7 +375,7 @@
           <p>– synchronous –</p>
 
           <div class="method-source-code" id="test_invalid_write-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 67</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_write</span>
   <span class="ruby-identifier">instance</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">Validation</span><span class="ruby-operator">::</span><span class="ruby-constant">StringIOWithoutWrite</span>.<span class="ruby-identifier">new</span>
 
@@ -412,7 +412,7 @@
           <p>– asynchronous –</p>
 
           <div class="method-source-code" id="test_invalid_write_nonblock-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 229</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 228</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_write_nonblock</span>
   <span class="ruby-identifier">instance</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">Validation</span><span class="ruby-operator">::</span><span class="ruby-constant">StringIOWithoutWriteNonblock</span>.<span class="ruby-identifier">new</span>
 
@@ -445,7 +445,7 @@
           
 
           <div class="method-source-code" id="test_rewind-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 186</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 185</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_rewind</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span>, <span class="ruby-identifier">worker_index</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">archive_path</span> = <span class="ruby-constant">Common</span>.<span class="ruby-identifier">get_path</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">worker_index</span>
@@ -503,7 +503,7 @@
           
 
           <div class="method-source-code" id="test_rewind_nonblock-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 400</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 399</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_rewind_nonblock</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Common</span>.<span class="ruby-identifier">file_can_be_used_nonblock?</span>
 
@@ -572,7 +572,7 @@
           
 
           <div class="method-source-code" id="test_write-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 87</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 86</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_write</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span><span class="ruby-operator">|</span>
     <span class="ruby-constant">TEXTS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">text</span><span class="ruby-operator">|</span>
@@ -621,7 +621,7 @@
           
 
           <div class="method-source-code" id="test_write_nonblock-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 245</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 244</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_write_nonblock</span>
   <span class="ruby-identifier">nonblock_server</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">server</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span><span class="ruby-operator">|</span>
@@ -716,7 +716,7 @@
           
 
           <div class="method-source-code" id="test_write_nonblock_with_large_texts-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 323</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 322</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_write_nonblock_with_large_texts</span>
   <span class="ruby-identifier">nonblock_server</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">server</span><span class="ruby-operator">|</span>
     <span class="ruby-constant">Common</span>.<span class="ruby-identifier">parallel</span> <span class="ruby-constant">LARGE_TEXTS</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">text</span><span class="ruby-operator">|</span>
@@ -802,7 +802,7 @@
           
 
           <div class="method-source-code" id="test_write_with_large_texts-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 119</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 118</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_write_with_large_texts</span>
   <span class="ruby-identifier">options_generator</span> = <span class="ruby-constant">OCG</span>.<span class="ruby-identifier">new</span>(
     <span class="ruby-value">:text</span>           <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">LARGE_TEXTS</span>,
@@ -854,7 +854,7 @@
           
 
           <div class="method-source-code" id="check_text-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 589</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 588</span>
           <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">check_text</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">compressed_text</span>, <span class="ruby-identifier">decompressor_options</span> = {})
   <span class="ruby-identifier">decompressed_text</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-identifier">compressed_text</span>, <span class="ruby-identifier">decompressor_options</span>
   <span class="ruby-identifier">decompressed_text</span>.<span class="ruby-identifier">force_encoding</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">encoding</span>
@@ -878,7 +878,7 @@
           <hr>
 
           <div class="method-source-code" id="get_sources-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 578</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 577</span>
           <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_sources</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">portion_length</span>)
   <span class="ruby-identifier">sources</span> = <span class="ruby-identifier">text</span>
     .<span class="ruby-identifier">chars</span>
@@ -906,7 +906,7 @@
           <p>– nonblock test –</p>
 
           <div class="method-source-code" id="nonblock_server-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 454</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 453</span>
           <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">nonblock_server</span>
   <span class="ruby-comment"># We need to test close nonblock.</span>
   <span class="ruby-comment"># This method writes remaining data and closes socket.</span>
@@ -1005,7 +1005,7 @@
           
 
           <div class="method-source-code" id="nonblock_test-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.test.rb, line 536</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer.rb, line 535</span>
           <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">nonblock_test</span>(<span class="ruby-identifier">server</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">portion_length</span>, <span class="ruby-identifier">compressor_options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">_block</span>)
   <span class="ruby-identifier">port</span>      = <span class="ruby-identifier">server</span>.<span class="ruby-identifier">addr</span>[<span class="ruby-value">1</span>]
   <span class="ruby-identifier">client_id</span> = <span class="ruby-ivar">@nonblock_client_lock</span>.<span class="ruby-identifier">synchronize</span> { <span class="ruby-ivar">@nonblock_client_id</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> }

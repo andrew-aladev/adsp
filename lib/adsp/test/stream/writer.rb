@@ -7,7 +7,6 @@ require "stringio"
 
 require_relative "abstract"
 require_relative "../common"
-require_relative "../minitest"
 require_relative "../option"
 require_relative "../mock/stream/writer"
 require_relative "../mock/string"
@@ -605,8 +604,6 @@ module ADSP
           Option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
         end
       end
-
-      Minitest << Writer
     end
   end
 end

@@ -262,8 +262,6 @@ module ADSP
           self.class::Target
         end
       end
-
-      Minitest << WriterHelpers
     end
   end
 end

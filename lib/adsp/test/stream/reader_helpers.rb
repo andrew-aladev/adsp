@@ -416,8 +416,6 @@ module ADSP
           self.class::Target
         end
       end
-
-      Minitest << ReaderHelpers
     end
   end
 end

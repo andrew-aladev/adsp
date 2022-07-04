@@ -3,7 +3,6 @@
 
 require_relative "abstract"
 require_relative "../../common"
-require_relative "../../minitest"
 require_relative "../../mock/stream/raw/compressor"
 require_relative "../../mock/string"
 require_relative "../../option"
@@ -160,8 +159,6 @@ module ADSP
             Option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
           end
         end
-
-        Minitest << Compressor
       end
     end
   end

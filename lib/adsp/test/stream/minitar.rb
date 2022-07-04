@@ -45,8 +45,6 @@ module ADSP
           end
         end
       end
-
-      Minitest << MinitarTest
     end
   end
 end

@@ -116,7 +116,5 @@ module ADSP
         self.class::Option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
       end
     end
-
-    Minitest << File
   end
 end

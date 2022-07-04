@@ -14,7 +14,5 @@ module ADSP
         refute_nil ADSP::VERSION
       end
     end
-
-    Minitest << Version
   end
 end
