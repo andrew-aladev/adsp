@@ -139,7 +139,7 @@
           
 
           <div class="method-source-code" id="file_can_be_used_nonblock-3F-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 97</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 99</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">file_can_be_used_nonblock?</span>
   <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">file</span>.<span class="ruby-identifier">write_nonblock</span> <span class="ruby-string">&quot;text&quot;</span>
@@ -167,7 +167,7 @@
           
 
           <div class="method-source-code" id="generate_texts-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">generate_texts</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">sources</span>)
   <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">flat_map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span>
     <span class="ruby-constant">ENCODINGS</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">encoding</span><span class="ruby-operator">|</span>
@@ -192,7 +192,7 @@
           
 
           <div class="method-source-code" id="get_path-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 26</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">get_path</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">suffix</span>)
   <span class="ruby-node">&quot;#{path}_#{suffix}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -213,7 +213,7 @@
           
 
           <div class="method-source-code" id="parallel-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 81</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">parallel</span>(<span class="ruby-identifier">producer</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">_block</span>)
   <span class="ruby-constant">Parallel</span>.<span class="ruby-identifier">each</span> <span class="ruby-identifier">producer</span>, <span class="ruby-value">:in_threads</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">THREADS_COUNT</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">yield</span> <span class="ruby-identifier">item</span>, <span class="ruby-constant">Parallel</span>.<span class="ruby-identifier">worker_number</span>
@@ -236,7 +236,7 @@
           
 
           <div class="method-source-code" id="parallel_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 87</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/common.rb, line 89</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">parallel_options</span>(<span class="ruby-identifier">generator</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">producer</span> = <span class="ruby-identifier">proc</span> <span class="ruby-keyword">do</span>
     <span class="ruby-keyword">next</span> <span class="ruby-constant">Parallel</span><span class="ruby-operator">::</span><span class="ruby-constant">Stop</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">generator</span>.<span class="ruby-identifier">finished?</span>

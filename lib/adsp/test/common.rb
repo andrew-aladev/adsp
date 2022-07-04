@@ -12,7 +12,9 @@ module ADSP
     # ADSP::Test::Common module.
     module Common
       BASE_PATH = ::File.expand_path(::File.join(::File.dirname(__FILE__), "..", "..", "..")).freeze
+
       TEMP_PATH = ::File.join(BASE_PATH, "tmp").freeze
+      FileUtils.mkdir_p TEMP_PATH
 
       SOURCE_PATH  = ::File.join(TEMP_PATH, "source").freeze
       ARCHIVE_PATH = ::File.join(TEMP_PATH, "archive").freeze
