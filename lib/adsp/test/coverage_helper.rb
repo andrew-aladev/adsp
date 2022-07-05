@@ -13,6 +13,7 @@ if ENV["CI"]
   )
 
   SimpleCov.start do
+    add_filter %r{^/lib/adsp/test/}
     add_filter %r{^/test/}
   end
 end
