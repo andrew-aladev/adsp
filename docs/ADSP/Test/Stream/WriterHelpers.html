@@ -75,6 +75,7 @@
     <li ><a href="#method-i-check_text">#check_text</a>
     <li ><a href="#method-i-get_compatible_decompressor_options">#get_compatible_decompressor_options</a>
     <li ><a href="#method-i-get_sources">#get_sources</a>
+    <li ><a href="#method-i-option">#option</a>
     <li ><a href="#method-i-parallel_compressor_options">#parallel_compressor_options</a>
     <li ><a href="#method-i-target">#target</a>
     <li ><a href="#method-i-test_invalid_open">#test_invalid_open</a>
@@ -121,6 +122,8 @@
         <dd>
         <dt id="LARGE_TEXTS">LARGE_TEXTS
         <dd>
+        <dt id="Option">Option
+        <dd>
         <dt id="PORTION_LENGTHS">PORTION_LENGTHS
         <dd>
         <dt id="String">String
@@ -150,9 +153,9 @@
           
 
           <div class="method-source-code" id="get_compatible_decompressor_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 257</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 258</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_compatible_decompressor_options</span>(<span class="ruby-identifier">compressor_options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_compatible_decompressor_options</span> <span class="ruby-identifier">compressor_options</span>, <span class="ruby-constant">BUFFER_LENGTH_MAPPING</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_compatible_decompressor_options</span> <span class="ruby-identifier">compressor_options</span>, <span class="ruby-constant">BUFFER_LENGTH_MAPPING</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -171,9 +174,9 @@
           
 
           <div class="method-source-code" id="parallel_compressor_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 253</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 254</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parallel_compressor_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-constant">Common</span>.<span class="ruby-identifier">parallel_options</span> <span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_compressor_options_generator</span>(<span class="ruby-constant">BUFFER_LENGTH_NAMES</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-constant">Common</span>.<span class="ruby-identifier">parallel_options</span> <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_compressor_options_generator</span>(<span class="ruby-constant">BUFFER_LENGTH_NAMES</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -192,17 +195,17 @@
           
 
           <div class="method-source-code" id="test_invalid_open-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 180</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 181</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_open</span>
   <span class="ruby-constant">Validation</span><span class="ruby-operator">::</span><span class="ruby-constant">INVALID_STRINGS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">invalid_string</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">invalid_string</span>) {} <span class="ruby-comment"># no-op</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">invalid_string</span>) {} <span class="ruby-comment"># no-op</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-comment"># Proc is required.</span>
   <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span> <span class="ruby-constant">ARCHIVE_PATH</span>
+    <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span> <span class="ruby-constant">ARCHIVE_PATH</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -222,7 +225,7 @@
           
 
           <div class="method-source-code" id="test_invalid_putc-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 105</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_putc</span>
   <span class="ruby-identifier">instance</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">new</span> <span class="ruby-operator">::</span><span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>
 
@@ -249,13 +252,13 @@
           
 
           <div class="method-source-code" id="test_open-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 193</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 194</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_open</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span>, <span class="ruby-identifier">worker_index</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">archive_path</span> = <span class="ruby-constant">Common</span>.<span class="ruby-identifier">get_path</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">worker_index</span>
 
     <span class="ruby-constant">TEXTS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">text</span><span class="ruby-operator">|</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">text</span> }
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">text</span> }
 
       <span class="ruby-identifier">compressed_text</span> = <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-value">:mode</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;rb&quot;</span>
 
@@ -282,7 +285,7 @@
           
 
           <div class="method-source-code" id="test_open_with_large_texts-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 209</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 210</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_open_with_large_texts</span>
   <span class="ruby-identifier">options_generator</span> = <span class="ruby-constant">OCG</span>.<span class="ruby-identifier">new</span>(
     <span class="ruby-value">:text</span>           <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">LARGE_TEXTS</span>,
@@ -297,7 +300,7 @@
 
     <span class="ruby-identifier">sources</span> = <span class="ruby-identifier">get_sources</span> <span class="ruby-identifier">text</span>, <span class="ruby-identifier">portion_length</span>
 
-    <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">source</span> }
     <span class="ruby-keyword">end</span>
 
@@ -323,7 +326,7 @@
           
 
           <div class="method-source-code" id="test_print-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_print</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span>, <span class="ruby-identifier">worker_index</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">archive_path</span> = <span class="ruby-constant">Common</span>.<span class="ruby-identifier">get_path</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">worker_index</span>
@@ -338,7 +341,7 @@
         <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">target_text</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">source</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">field_separator</span>) }
         <span class="ruby-identifier">target_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">record_separator</span>
 
-        <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
           <span class="ruby-identifier">keyword_args</span> = { <span class="ruby-value">:field_separator</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">field_separator</span>, <span class="ruby-value">:record_separator</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">record_separator</span> }
           <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">print</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">sources</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">keyword_args</span>)
         <span class="ruby-keyword">end</span>
@@ -369,7 +372,7 @@
           
 
           <div class="method-source-code" id="test_printf-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 83</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 84</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_printf</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span>, <span class="ruby-identifier">worker_index</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">archive_path</span> = <span class="ruby-constant">Common</span>.<span class="ruby-identifier">get_path</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">worker_index</span>
@@ -378,7 +381,7 @@
       <span class="ruby-constant">PORTION_LENGTHS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">portion_length</span><span class="ruby-operator">|</span>
         <span class="ruby-identifier">sources</span> = <span class="ruby-identifier">get_sources</span> <span class="ruby-identifier">text</span>, <span class="ruby-identifier">portion_length</span>
 
-        <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
           <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">printf</span> <span class="ruby-string">&quot;%s&quot;</span>, <span class="ruby-identifier">source</span> }
         <span class="ruby-keyword">end</span>
 
@@ -408,13 +411,13 @@
           
 
           <div class="method-source-code" id="test_putc-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 115</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 116</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_putc</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span>, <span class="ruby-identifier">worker_index</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">archive_path</span> = <span class="ruby-constant">Common</span>.<span class="ruby-identifier">get_path</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">worker_index</span>
 
     <span class="ruby-constant">TEXTS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">text</span><span class="ruby-operator">|</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
         <span class="ruby-comment"># Putc should process numbers and strings.</span>
         <span class="ruby-identifier">text</span>.<span class="ruby-identifier">chars</span>.<span class="ruby-identifier">each</span>.<span class="ruby-identifier">with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">char</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
           <span class="ruby-keyword">if</span> <span class="ruby-identifier">index</span>.<span class="ruby-identifier">even?</span>
@@ -450,7 +453,7 @@
           
 
           <div class="method-source-code" id="test_puts-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 140</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 141</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_puts</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span>, <span class="ruby-identifier">worker_index</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">archive_path</span> = <span class="ruby-constant">Common</span>.<span class="ruby-identifier">get_path</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">worker_index</span>
@@ -468,7 +471,7 @@
         <span class="ruby-identifier">target_text</span> = <span class="ruby-string">&quot;&quot;</span>.<span class="ruby-identifier">encode</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">encoding</span>
         <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">target_text</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">source</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">newline</span>) }
 
-        <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
           <span class="ruby-comment"># Puts should ignore additional newlines and process arrays.</span>
           <span class="ruby-identifier">args</span> = <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">map</span>.<span class="ruby-identifier">with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">source</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
             <span class="ruby-keyword">if</span> <span class="ruby-identifier">index</span>.<span class="ruby-identifier">even?</span>
@@ -507,7 +510,7 @@
           
 
           <div class="method-source-code" id="test_write-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 32</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_write</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span>, <span class="ruby-identifier">worker_index</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">archive_path</span> = <span class="ruby-constant">Common</span>.<span class="ruby-identifier">get_path</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">worker_index</span>
@@ -516,7 +519,7 @@
       <span class="ruby-constant">PORTION_LENGTHS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">portion_length</span><span class="ruby-operator">|</span>
         <span class="ruby-identifier">sources</span> = <span class="ruby-identifier">get_sources</span> <span class="ruby-identifier">text</span>, <span class="ruby-identifier">portion_length</span>
 
-        <span class="ruby-constant">Target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">target</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instance</span><span class="ruby-operator">|</span>
           <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">current_source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instance</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">current_source</span> }
         <span class="ruby-keyword">end</span>
 
@@ -553,7 +556,7 @@
           
 
           <div class="method-source-code" id="check_text-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 246</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 247</span>
           <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">check_text</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">compressed_text</span>, <span class="ruby-identifier">decompressor_options</span>)
   <span class="ruby-identifier">decompressed_text</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-identifier">compressed_text</span>, <span class="ruby-identifier">decompressor_options</span>
   <span class="ruby-identifier">decompressed_text</span>.<span class="ruby-identifier">force_encoding</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">encoding</span>
@@ -577,7 +580,7 @@
           <hr>
 
           <div class="method-source-code" id="get_sources-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 235</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 236</span>
           <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_sources</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">portion_length</span>)
   <span class="ruby-identifier">sources</span> = <span class="ruby-identifier">text</span>
     .<span class="ruby-identifier">chars</span>
@@ -587,6 +590,27 @@
   <span class="ruby-keyword">return</span> [<span class="ruby-string">&quot;&quot;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">empty?</span>
 
   <span class="ruby-identifier">sources</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-option" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">option</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+
+          <div class="method-source-code" id="option-source">
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 266</span>
+          <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">option</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Option</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -605,7 +629,7 @@
           
 
           <div class="method-source-code" id="target-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 261</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/writer_helpers.rb, line 262</span>
           <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">target</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Target</span>
 <span class="ruby-keyword">end</span></pre>

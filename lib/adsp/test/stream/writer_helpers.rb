@@ -18,6 +18,7 @@ module ADSP
       # ADSP::Test::Stream::WriterHelpers class.
       class WriterHelpers < Minitest::Test
         Target = Mock::Stream::Writer
+        Option = Test::Option
         String = Mock::String
 
         ARCHIVE_PATH          = Common::ARCHIVE_PATH
@@ -37,7 +38,7 @@ module ADSP
               PORTION_LENGTHS.each do |portion_length|
                 sources = get_sources text, portion_length
 
-                Target.open archive_path, compressor_options do |instance|
+                target.open archive_path, compressor_options do |instance|
                   sources.each { |current_source| instance << current_source }
                 end
 
@@ -65,7 +66,7 @@ module ADSP
                 sources.each { |source| target_text << (source + field_separator) }
                 target_text << record_separator
 
-                Target.open archive_path, compressor_options do |instance|
+                target.open archive_path, compressor_options do |instance|
                   keyword_args = { :field_separator => field_separator, :record_separator => record_separator }
                   instance.print(*sources, **keyword_args)
                 end
@@ -88,7 +89,7 @@ module ADSP
               PORTION_LENGTHS.each do |portion_length|
                 sources = get_sources text, portion_length
 
-                Target.open archive_path, compressor_options do |instance|
+                target.open archive_path, compressor_options do |instance|
                   sources.each { |source| instance.printf "%s", source }
                 end
 
@@ -117,7 +118,7 @@ module ADSP
             archive_path = Common.get_path ARCHIVE_PATH, worker_index
 
             TEXTS.each do |text|
-              Target.open archive_path, compressor_options do |instance|
+              target.open archive_path, compressor_options do |instance|
                 # Putc should process numbers and strings.
                 text.chars.each.with_index do |char, index|
                   if index.even?
@@ -154,7 +155,7 @@ module ADSP
                 target_text = "".encode text.encoding
                 sources.each { |source| target_text << (source + newline) }
 
-                Target.open archive_path, compressor_options do |instance|
+                target.open archive_path, compressor_options do |instance|
                   # Puts should ignore additional newlines and process arrays.
                   args = sources.map.with_index do |source, index|
                     if index.even?
@@ -180,13 +181,13 @@ module ADSP
         def test_invalid_open
           Validation::INVALID_STRINGS.each do |invalid_string|
             assert_raises ValidateError do
-              Target.open(invalid_string) {} # no-op
+              target.open(invalid_string) {} # no-op
             end
           end
 
           # Proc is required.
           assert_raises ValidateError do
-            Target.open ARCHIVE_PATH
+            target.open ARCHIVE_PATH
           end
         end
 
@@ -195,7 +196,7 @@ module ADSP
             archive_path = Common.get_path ARCHIVE_PATH, worker_index
 
             TEXTS.each do |text|
-              Target.open(archive_path, compressor_options) { |instance| instance.write text }
+              target.open(archive_path, compressor_options) { |instance| instance.write text }
 
               compressed_text = ::File.read archive_path, :mode => "rb"
 
@@ -220,7 +221,7 @@ module ADSP
 
             sources = get_sources text, portion_length
 
-            Target.open archive_path do |instance|
+            target.open archive_path do |instance|
               sources.each { |source| instance.write source }
             end
 
@@ -251,15 +252,19 @@ module ADSP
         end
 
         def parallel_compressor_options(&block)
-          Common.parallel_options Option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
+          Common.parallel_options option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
         end
 
         def get_compatible_decompressor_options(compressor_options, &block)
-          Option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
+          option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
         end
 
         protected def target
           self.class::Target
+        end
+
+        protected def option
+          self.class::Option
         end
       end
     end

@@ -74,6 +74,7 @@
   <ul class="link-list" role="directory">
     <li ><a href="#method-i-get_compatible_decompressor_options">#get_compatible_decompressor_options</a>
     <li ><a href="#method-i-get_invalid_compressor_options">#get_invalid_compressor_options</a>
+    <li ><a href="#method-i-option">#option</a>
     <li ><a href="#method-i-parallel_compressor_options">#parallel_compressor_options</a>
     <li ><a href="#method-i-test_invalid_initialize">#test_invalid_initialize</a>
     <li ><a href="#method-i-test_invalid_write">#test_invalid_write</a>
@@ -112,6 +113,8 @@
         <dd>
         <dt id="LARGE_TEXTS">LARGE_TEXTS
         <dd>
+        <dt id="Option">Option
+        <dd>
         <dt id="PORTION_LENGTHS">PORTION_LENGTHS
         <dd>
         <dt id="String">String
@@ -141,9 +144,9 @@
           
 
           <div class="method-source-code" id="get_compatible_decompressor_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 158</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 159</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_compatible_decompressor_options</span>(<span class="ruby-identifier">compressor_options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_compatible_decompressor_options</span> <span class="ruby-identifier">compressor_options</span>, <span class="ruby-constant">BUFFER_LENGTH_MAPPING</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_compatible_decompressor_options</span> <span class="ruby-identifier">compressor_options</span>, <span class="ruby-constant">BUFFER_LENGTH_MAPPING</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -162,9 +165,30 @@
           <hr>
 
           <div class="method-source-code" id="get_invalid_compressor_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 150</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 151</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_invalid_compressor_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_invalid_compressor_options</span> <span class="ruby-constant">BUFFER_LENGTH_NAMES</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_invalid_compressor_options</span> <span class="ruby-constant">BUFFER_LENGTH_NAMES</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-option" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">option</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+
+          <div class="method-source-code" id="option-source">
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 163</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">option</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Option</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -183,9 +207,9 @@
           
 
           <div class="method-source-code" id="parallel_compressor_options-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 154</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 155</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parallel_compressor_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-constant">Common</span>.<span class="ruby-identifier">parallel_options</span> <span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_compressor_options_generator</span>(<span class="ruby-constant">BUFFER_LENGTH_NAMES</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-constant">Common</span>.<span class="ruby-identifier">parallel_options</span> <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_compressor_options_generator</span>(<span class="ruby-constant">BUFFER_LENGTH_NAMES</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -204,11 +228,11 @@
           
 
           <div class="method-source-code" id="test_invalid_initialize-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 29</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_initialize</span>
   <span class="ruby-identifier">get_invalid_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">invalid_options</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">invalid_options</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">invalid_options</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -229,9 +253,9 @@
           
 
           <div class="method-source-code" id="test_invalid_write-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 37</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_write</span>
-  <span class="ruby-identifier">compressor</span> = <span class="ruby-constant">Target</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">compressor</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">new</span>
 
   <span class="ruby-constant">Validation</span><span class="ruby-operator">::</span><span class="ruby-constant">INVALID_STRINGS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">invalid_string</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
@@ -266,7 +290,7 @@
           
 
           <div class="method-source-code" id="test_large_texts-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 105</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_large_texts</span>
   <span class="ruby-identifier">options_generator</span> = <span class="ruby-constant">OCG</span>.<span class="ruby-identifier">new</span>(
     <span class="ruby-value">:text</span>           <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">LARGE_TEXTS</span>,
@@ -281,7 +305,7 @@
     <span class="ruby-identifier">compressed_buffer</span>.<span class="ruby-identifier">set_encoding</span> <span class="ruby-operator">::</span><span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">BINARY</span>
 
     <span class="ruby-identifier">writer</span>     = <span class="ruby-identifier">proc</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">portion</span><span class="ruby-operator">|</span> <span class="ruby-identifier">compressed_buffer</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">portion</span> }
-    <span class="ruby-identifier">compressor</span> = <span class="ruby-constant">Target</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">compressor</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">new</span>
 
     <span class="ruby-keyword">begin</span>
       <span class="ruby-identifier">source</span>      = <span class="ruby-string">&quot;&quot;</span>.<span class="ruby-identifier">b</span>
@@ -326,7 +350,7 @@
           
 
           <div class="method-source-code" id="test_texts-source">
-            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 57</span>
+            <pre><span class="ruby-comment"># File lib/adsp/test/stream/raw/compressor.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_texts</span>
   <span class="ruby-identifier">parallel_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compressor_options</span><span class="ruby-operator">|</span>
     <span class="ruby-constant">TEXTS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">text</span><span class="ruby-operator">|</span>
@@ -335,7 +359,7 @@
         <span class="ruby-identifier">compressed_buffer</span>.<span class="ruby-identifier">set_encoding</span> <span class="ruby-operator">::</span><span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">BINARY</span>
 
         <span class="ruby-identifier">writer</span>     = <span class="ruby-identifier">proc</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">portion</span><span class="ruby-operator">|</span> <span class="ruby-identifier">compressed_buffer</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">portion</span> }
-        <span class="ruby-identifier">compressor</span> = <span class="ruby-constant">Target</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">compressor_options</span>
+        <span class="ruby-identifier">compressor</span> = <span class="ruby-identifier">target</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">compressor_options</span>
 
         <span class="ruby-keyword">begin</span>
           <span class="ruby-identifier">source</span>      = <span class="ruby-string">&quot;&quot;</span>.<span class="ruby-identifier">b</span>

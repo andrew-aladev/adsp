@@ -19,6 +19,7 @@ module ADSP
       # ADSP::Test::Stream::Reader class.
       class Reader < Abstract
         Target = Mock::Stream::Reader
+        Option = Test::Option
         String = Mock::String
 
         ARCHIVE_PATH          = Common::ARCHIVE_PATH
@@ -626,15 +627,19 @@ module ADSP
         end
 
         def get_invalid_decompressor_options(&block)
-          Option.get_invalid_decompressor_options BUFFER_LENGTH_NAMES, &block
+          option.get_invalid_decompressor_options BUFFER_LENGTH_NAMES, &block
         end
 
         def parallel_compressor_options(&block)
-          Common.parallel_options Option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
+          Common.parallel_options option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
         end
 
         def get_compatible_decompressor_options(compressor_options, &block)
-          Option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
+          option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
+        end
+
+        def option
+          self.class::Option
         end
       end
     end
