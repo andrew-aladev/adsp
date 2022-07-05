@@ -18,6 +18,7 @@ module ADSP
       # ADSP::Test::Stream::ReaderHelpers class.
       class ReaderHelpers < Minitest::Test
         Target = Mock::Stream::Reader
+        Option = Test::Option
         String = Mock::String
 
         ARCHIVE_PATH      = Common::ARCHIVE_PATH
@@ -53,7 +54,7 @@ module ADSP
               write_archive archive_path, text, compressor_options
 
               get_compatible_decompressor_options compressor_options do |decompressor_options|
-                Target.open archive_path, decompressor_options do |instance|
+                target.open archive_path, decompressor_options do |instance|
                   # getbyte
 
                   byte = instance.getbyte
@@ -101,7 +102,7 @@ module ADSP
               write_archive archive_path, text, compressor_options
 
               get_compatible_decompressor_options compressor_options do |decompressor_options|
-                Target.open archive_path, decompressor_options do |instance|
+                target.open archive_path, decompressor_options do |instance|
                   # getc
 
                   char = instance.getc
@@ -142,7 +143,7 @@ module ADSP
                 target_text = text.encode internal_encoding, **TRANSCODE_OPTIONS
 
                 get_compatible_decompressor_options compressor_options do |decompressor_options|
-                  Target.open archive_path, decompressor_options do |instance|
+                  target.open archive_path, decompressor_options do |instance|
                     instance.set_encoding external_encoding, internal_encoding, TRANSCODE_OPTIONS
 
                     # getc
@@ -225,7 +226,7 @@ module ADSP
                 end
 
               get_compatible_decompressor_options compressor_options do |decompressor_options|
-                Target.open archive_path, decompressor_options do |instance|
+                target.open archive_path, decompressor_options do |instance|
                   # lineno
 
                   assert_equal 0, instance.lineno
@@ -313,7 +314,7 @@ module ADSP
                   end
 
                 get_compatible_decompressor_options compressor_options do |decompressor_options|
-                  Target.open archive_path, decompressor_options do |instance|
+                  target.open archive_path, decompressor_options do |instance|
                     instance.set_encoding external_encoding, internal_encoding, TRANSCODE_OPTIONS
 
                     # gets
@@ -358,13 +359,13 @@ module ADSP
         def test_invalid_open
           Validation::INVALID_STRINGS.each do |invalid_string|
             assert_raises ValidateError do
-              Target.open(invalid_string) {} # no-op
+              target.open(invalid_string) {} # no-op
             end
           end
 
           # Proc is required.
           assert_raises ValidateError do
-            Target.open ARCHIVE_PATH
+            target.open ARCHIVE_PATH
           end
         end
 
@@ -376,7 +377,7 @@ module ADSP
               write_archive archive_path, text, compressor_options
 
               get_compatible_decompressor_options compressor_options do |decompressor_options|
-                decompressed_text = Target.open archive_path, decompressor_options, &:read
+                decompressed_text = target.open archive_path, decompressor_options, &:read
                 decompressed_text.force_encoding text.encoding
 
                 assert_equal text, decompressed_text
@@ -390,7 +391,7 @@ module ADSP
             archive_path = Common.get_path ARCHIVE_PATH, worker_index
             write_archive archive_path, text
 
-            decompressed_text = Target.open archive_path, &:read
+            decompressed_text = target.open archive_path, &:read
             decompressed_text.force_encoding text.encoding
 
             assert_equal text, decompressed_text
@@ -405,15 +406,19 @@ module ADSP
         end
 
         def parallel_compressor_options(&block)
-          Common.parallel_options Option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
+          Common.parallel_options option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
         end
 
         def get_compatible_decompressor_options(compressor_options, &block)
-          Option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
+          option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
         end
 
         protected def target
           self.class::Target
+        end
+
+        protected def option
+          self.class::Option
         end
       end
     end

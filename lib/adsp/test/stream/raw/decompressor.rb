@@ -16,6 +16,7 @@ module ADSP
         # ADSP::Test::Stream::Raw::Decompressor class.
         class Decompressor < Abstract
           Target = Mock::Stream::Raw::Decompressor
+          Option = Test::Option
           String = Mock::String
 
           TEXTS                 = Common::TEXTS
@@ -29,13 +30,13 @@ module ADSP
           def test_invalid_initialize
             get_invalid_decompressor_options do |invalid_options|
               assert_raises ValidateError do
-                Target.new invalid_options
+                target.new invalid_options
               end
             end
           end
 
           def test_invalid_read
-            decompressor = Target.new
+            decompressor = target.new
 
             Validation::INVALID_STRINGS.each do |invalid_string|
               assert_raises ValidateError do
@@ -65,7 +66,7 @@ module ADSP
                     decompressed_buffer.set_encoding ::Encoding::BINARY
 
                     writer       = proc { |portion| decompressed_buffer << portion }
-                    decompressor = Target.new decompressor_options
+                    decompressor = target.new decompressor_options
 
                     begin
                       source                 = "".b
@@ -118,7 +119,7 @@ module ADSP
               decompressed_buffer.set_encoding ::Encoding::BINARY
 
               writer       = proc { |portion| decompressed_buffer << portion }
-              decompressor = Target.new
+              decompressor = target.new
 
               begin
                 source                 = "".b
@@ -148,15 +149,19 @@ module ADSP
           # -----
 
           def get_invalid_decompressor_options(&block)
-            Option.get_invalid_decompressor_options BUFFER_LENGTH_NAMES, &block
+            option.get_invalid_decompressor_options BUFFER_LENGTH_NAMES, &block
           end
 
           def parallel_compressor_options(&block)
-            Common.parallel_options Option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
+            Common.parallel_options option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
           end
 
           def get_compatible_decompressor_options(compressor_options, &block)
-            Option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
+            option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
+          end
+
+          def option
+            self.class::Option
           end
         end
       end

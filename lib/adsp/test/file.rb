@@ -14,8 +14,8 @@ module ADSP
   module Test
     # ADSP::Test::File class.
     class File < Minitest::Test
-      Option = Test::Option
       Target = Mock::File
+      Option = Test::Option
 
       SOURCE_PATH  = Common::SOURCE_PATH
       ARCHIVE_PATH = Common::ARCHIVE_PATH
@@ -32,31 +32,31 @@ module ADSP
       def test_invalid_arguments
         Validation::INVALID_STRINGS.each do |invalid_path|
           assert_raises ValidateError do
-            Target.compress invalid_path, ARCHIVE_PATH
+            target.compress invalid_path, ARCHIVE_PATH
           end
 
           assert_raises ValidateError do
-            Target.compress SOURCE_PATH, invalid_path
+            target.compress SOURCE_PATH, invalid_path
           end
 
           assert_raises ValidateError do
-            Target.decompress invalid_path, SOURCE_PATH
+            target.decompress invalid_path, SOURCE_PATH
           end
 
           assert_raises ValidateError do
-            Target.decompress ARCHIVE_PATH, invalid_path
+            target.decompress ARCHIVE_PATH, invalid_path
           end
         end
 
         get_invalid_compressor_options do |invalid_options|
           assert_raises ValidateError do
-            Target.compress SOURCE_PATH, ARCHIVE_PATH, invalid_options
+            target.compress SOURCE_PATH, ARCHIVE_PATH, invalid_options
           end
         end
 
         get_invalid_decompressor_options do |invalid_options|
           assert_raises ValidateError do
-            Target.decompress ARCHIVE_PATH, SOURCE_PATH, invalid_options
+            target.decompress ARCHIVE_PATH, SOURCE_PATH, invalid_options
           end
         end
       end
@@ -68,10 +68,10 @@ module ADSP
 
           TEXTS.each do |text|
             ::File.write source_path, text, :mode => "wb"
-            Target.compress source_path, archive_path, compressor_options
+            target.compress source_path, archive_path, compressor_options
 
             get_compatible_decompressor_options compressor_options do |decompressor_options|
-              Target.decompress archive_path, source_path, decompressor_options
+              target.decompress archive_path, source_path, decompressor_options
 
               decompressed_text = ::File.read source_path, :mode => "rb"
               decompressed_text.force_encoding text.encoding
@@ -88,8 +88,8 @@ module ADSP
           archive_path = Common.get_path ARCHIVE_PATH, worker_index
 
           ::File.write source_path, text, :mode => "wb"
-          Target.compress source_path, archive_path
-          Target.decompress archive_path, source_path
+          target.compress source_path, archive_path
+          target.decompress archive_path, source_path
 
           decompressed_text = ::File.read source_path, :mode => "rb"
           decompressed_text.force_encoding text.encoding
@@ -101,19 +101,27 @@ module ADSP
       # -----
 
       def get_invalid_compressor_options(&block)
-        self.class::Option.get_invalid_compressor_options BUFFER_LENGTH_NAMES, &block
+        option.get_invalid_compressor_options BUFFER_LENGTH_NAMES, &block
       end
 
       def get_invalid_decompressor_options(&block)
-        self.class::Option.get_invalid_decompressor_options BUFFER_LENGTH_NAMES, &block
+        option.get_invalid_decompressor_options BUFFER_LENGTH_NAMES, &block
       end
 
       def parallel_compressor_options(&block)
-        Common.parallel_options self.class::Option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
+        Common.parallel_options option.get_compressor_options_generator(BUFFER_LENGTH_NAMES), &block
       end
 
       def get_compatible_decompressor_options(compressor_options, &block)
-        self.class::Option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
+        option.get_compatible_decompressor_options compressor_options, BUFFER_LENGTH_MAPPING, &block
+      end
+
+      protected def target
+        self.class::Target
+      end
+
+      protected def option
+        self.class::Option
       end
     end
   end

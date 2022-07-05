@@ -75,7 +75,9 @@
     <li ><a href="#method-i-get_compatible_decompressor_options">#get_compatible_decompressor_options</a>
     <li ><a href="#method-i-get_invalid_compressor_options">#get_invalid_compressor_options</a>
     <li ><a href="#method-i-get_invalid_decompressor_options">#get_invalid_decompressor_options</a>
+    <li ><a href="#method-i-option">#option</a>
     <li ><a href="#method-i-parallel_compressor_options">#parallel_compressor_options</a>
+    <li ><a href="#method-i-target">#target</a>
     <li ><a href="#method-i-test_invalid_arguments">#test_invalid_arguments</a>
     <li ><a href="#method-i-test_large_texts">#test_large_texts</a>
     <li ><a href="#method-i-test_texts">#test_texts</a>
@@ -143,7 +145,7 @@
           <div class="method-source-code" id="get_compatible_decompressor_options-source">
             <pre><span class="ruby-comment"># File lib/adsp/test/file.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_compatible_decompressor_options</span>(<span class="ruby-identifier">compressor_options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_compatible_decompressor_options</span> <span class="ruby-identifier">compressor_options</span>, <span class="ruby-constant">BUFFER_LENGTH_MAPPING</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_compatible_decompressor_options</span> <span class="ruby-identifier">compressor_options</span>, <span class="ruby-constant">BUFFER_LENGTH_MAPPING</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -164,7 +166,7 @@
           <div class="method-source-code" id="get_invalid_compressor_options-source">
             <pre><span class="ruby-comment"># File lib/adsp/test/file.rb, line 103</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_invalid_compressor_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_invalid_compressor_options</span> <span class="ruby-constant">BUFFER_LENGTH_NAMES</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_invalid_compressor_options</span> <span class="ruby-constant">BUFFER_LENGTH_NAMES</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -185,7 +187,7 @@
           <div class="method-source-code" id="get_invalid_decompressor_options-source">
             <pre><span class="ruby-comment"># File lib/adsp/test/file.rb, line 107</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_invalid_decompressor_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_invalid_decompressor_options</span> <span class="ruby-constant">BUFFER_LENGTH_NAMES</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_invalid_decompressor_options</span> <span class="ruby-constant">BUFFER_LENGTH_NAMES</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -206,7 +208,7 @@
           <div class="method-source-code" id="parallel_compressor_options-source">
             <pre><span class="ruby-comment"># File lib/adsp/test/file.rb, line 111</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parallel_compressor_options</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-constant">Common</span>.<span class="ruby-identifier">parallel_options</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Option</span>.<span class="ruby-identifier">get_compressor_options_generator</span>(<span class="ruby-constant">BUFFER_LENGTH_NAMES</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-constant">Common</span>.<span class="ruby-identifier">parallel_options</span> <span class="ruby-identifier">option</span>.<span class="ruby-identifier">get_compressor_options_generator</span>(<span class="ruby-constant">BUFFER_LENGTH_NAMES</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -229,31 +231,31 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">test_invalid_arguments</span>
   <span class="ruby-constant">Validation</span><span class="ruby-operator">::</span><span class="ruby-constant">INVALID_STRINGS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">invalid_path</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-identifier">invalid_path</span>, <span class="ruby-constant">ARCHIVE_PATH</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-identifier">invalid_path</span>, <span class="ruby-constant">ARCHIVE_PATH</span>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-constant">SOURCE_PATH</span>, <span class="ruby-identifier">invalid_path</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-constant">SOURCE_PATH</span>, <span class="ruby-identifier">invalid_path</span>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-identifier">invalid_path</span>, <span class="ruby-constant">SOURCE_PATH</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-identifier">invalid_path</span>, <span class="ruby-constant">SOURCE_PATH</span>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">invalid_path</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">invalid_path</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">get_invalid_compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">invalid_options</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-constant">SOURCE_PATH</span>, <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">invalid_options</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-constant">SOURCE_PATH</span>, <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">invalid_options</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">get_invalid_decompressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">invalid_options</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">ValidateError</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-constant">SOURCE_PATH</span>, <span class="ruby-identifier">invalid_options</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-constant">SOURCE_PATH</span>, <span class="ruby-identifier">invalid_options</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -281,8 +283,8 @@
     <span class="ruby-identifier">archive_path</span> = <span class="ruby-constant">Common</span>.<span class="ruby-identifier">get_path</span> <span class="ruby-constant">ARCHIVE_PATH</span>, <span class="ruby-identifier">worker_index</span>
 
     <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">text</span>, <span class="ruby-value">:mode</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;wb&quot;</span>
-    <span class="ruby-constant">Target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">archive_path</span>
-    <span class="ruby-constant">Target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">source_path</span>
+    <span class="ruby-identifier">target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">archive_path</span>
+    <span class="ruby-identifier">target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">source_path</span>
 
     <span class="ruby-identifier">decompressed_text</span> = <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span> <span class="ruby-identifier">source_path</span>, <span class="ruby-value">:mode</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;rb&quot;</span>
     <span class="ruby-identifier">decompressed_text</span>.<span class="ruby-identifier">force_encoding</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">encoding</span>
@@ -315,10 +317,10 @@
 
     <span class="ruby-constant">TEXTS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">text</span><span class="ruby-operator">|</span>
       <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">text</span>, <span class="ruby-value">:mode</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;wb&quot;</span>
-      <span class="ruby-constant">Target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span>
+      <span class="ruby-identifier">target</span>.<span class="ruby-identifier">compress</span> <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">compressor_options</span>
 
       <span class="ruby-identifier">get_compatible_decompressor_options</span> <span class="ruby-identifier">compressor_options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">decompressor_options</span><span class="ruby-operator">|</span>
-        <span class="ruby-constant">Target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">decompressor_options</span>
+        <span class="ruby-identifier">target</span>.<span class="ruby-identifier">decompress</span> <span class="ruby-identifier">archive_path</span>, <span class="ruby-identifier">source_path</span>, <span class="ruby-identifier">decompressor_options</span>
 
         <span class="ruby-identifier">decompressed_text</span> = <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span> <span class="ruby-identifier">source_path</span>, <span class="ruby-value">:mode</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;rb&quot;</span>
         <span class="ruby-identifier">decompressed_text</span>.<span class="ruby-identifier">force_encoding</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">encoding</span>
@@ -327,6 +329,55 @@
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
+
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Protected Instance Methods</h3>
+       </header>
+
+      <div id="method-i-option" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">option</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+
+          <div class="method-source-code" id="option-source">
+            <pre><span class="ruby-comment"># File lib/adsp/test/file.rb, line 123</span>
+          <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">option</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Option</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-target" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">target</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+
+          <div class="method-source-code" id="target-source">
+            <pre><span class="ruby-comment"># File lib/adsp/test/file.rb, line 119</span>
+          <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">target</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">Target</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
