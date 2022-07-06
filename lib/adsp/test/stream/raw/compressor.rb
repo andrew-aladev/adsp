@@ -1,6 +1,8 @@
 # Abstract data stream processor.
 # Copyright (c) 2021 AUTHORS, MIT License.
 
+require "stringio"
+
 require_relative "abstract"
 require_relative "../../common"
 require_relative "../../mock/stream/raw/compressor"
