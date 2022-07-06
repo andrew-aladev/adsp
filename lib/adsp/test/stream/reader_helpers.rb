@@ -401,7 +401,7 @@ module ADSP
         # -----
 
         protected def write_archive(archive_path, text, compressor_options = {})
-          compressed_text = String.compress text, compressor_options
+          compressed_text = string.compress text, compressor_options
           ::File.write archive_path, compressed_text, :mode => "wb"
         end
 
@@ -419,6 +419,10 @@ module ADSP
 
         protected def option
           self.class::Option
+        end
+
+        protected def string
+          self.class::String
         end
       end
     end

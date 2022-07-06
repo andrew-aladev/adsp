@@ -245,7 +245,7 @@ module ADSP
         end
 
         protected def check_text(text, compressed_text, decompressor_options)
-          decompressed_text = String.decompress compressed_text, decompressor_options
+          decompressed_text = string.decompress compressed_text, decompressor_options
           decompressed_text.force_encoding text.encoding
 
           assert_equal text, decompressed_text
@@ -265,6 +265,10 @@ module ADSP
 
         protected def option
           self.class::Option
+        end
+
+        protected def string
+          self.class::String
         end
       end
     end

@@ -330,7 +330,7 @@ module ADSP
         end
 
         def test_eof
-          compressed_text = String.compress "ab"
+          compressed_text = string.compress "ab"
           instance        = target.new ::StringIO.new(compressed_text)
 
           refute_predicate instance, :eof?
@@ -581,7 +581,7 @@ module ADSP
 
         protected def nonblock_test(server, text, portion_length, compressor_options = {}, &_block)
           port            = server.addr[1]
-          compressed_text = String.compress text, compressor_options
+          compressed_text = string.compress text, compressor_options
 
           processor = proc do |decompressor_options|
             decompressed_text = ::TCPSocket.open "localhost", port do |socket|
@@ -618,11 +618,11 @@ module ADSP
         # -----
 
         protected def get_archive(text, compressor_options = {})
-          String.compress text, compressor_options
+          string.compress text, compressor_options
         end
 
         protected def write_archive(archive_path, text, compressor_options = {})
-          compressed_text = String.compress text, compressor_options
+          compressed_text = string.compress text, compressor_options
           ::File.write archive_path, compressed_text, :mode => "wb"
         end
 
@@ -640,6 +640,10 @@ module ADSP
 
         def option
           self.class::Option
+        end
+
+        def string
+          self.class::String
         end
       end
     end
