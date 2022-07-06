@@ -13,7 +13,8 @@ if ENV["CI"]
   )
 
   SimpleCov.start do
-    add_filter %r{^/lib/adsp/test/}
-    add_filter %r{^/test/}
+    track_files "lib/*.rb"
+    track_files "lib/adsp/*.rb"
+    track_files "lib/adsp/stream/**/*.rb"
   end
 end
