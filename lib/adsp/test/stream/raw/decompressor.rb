@@ -60,7 +60,7 @@ module ADSP
           def test_texts
             parallel_compressor_options do |compressor_options|
               TEXTS.each do |text|
-                compressed_text = String.compress text, compressor_options
+                compressed_text = string.compress text, compressor_options
 
                 PORTION_LENGTHS.each do |portion_length|
                   get_compatible_decompressor_options compressor_options do |decompressor_options|
@@ -115,7 +115,7 @@ module ADSP
               text           = options[:text]
               portion_length = options[:portion_length]
 
-              compressed_text = String.compress text
+              compressed_text = string.compress text
 
               decompressed_buffer = ::StringIO.new
               decompressed_buffer.set_encoding ::Encoding::BINARY
@@ -164,6 +164,10 @@ module ADSP
 
           def option
             self.class::Option
+          end
+
+          def string
+            self.class::String
           end
         end
       end

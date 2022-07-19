@@ -95,7 +95,7 @@ module ADSP
                   compressed_text = compressed_buffer.string
 
                   get_compatible_decompressor_options compressor_options do |decompressor_options|
-                    decompressed_text = String.decompress compressed_text, decompressor_options
+                    decompressed_text = string.decompress compressed_text, decompressor_options
                     decompressed_text.force_encoding text.encoding
 
                     assert_equal text, decompressed_text
@@ -141,7 +141,7 @@ module ADSP
 
               compressed_text = compressed_buffer.string
 
-              decompressed_text = String.decompress compressed_text
+              decompressed_text = string.decompress compressed_text
               decompressed_text.force_encoding text.encoding
 
               assert_equal text, decompressed_text
@@ -164,6 +164,10 @@ module ADSP
 
           def option
             self.class::Option
+          end
+
+          def string
+            self.class::String
           end
         end
       end
