@@ -64,13 +64,15 @@ module ADSP
             end
           end
 
+          instance = target.new Validation::StringIOWithoutRead.new
+
           assert_raises ValidateError do
-            instance = target.new Validation::StringIOWithoutRead.new
             instance.read
           end
 
+          instance = target.new Validation::StringIOWithoutEOF.new
+
           assert_raises ValidateError do
-            instance = target.new Validation::StringIOWithoutEOF.new
             instance.read
           end
         end
@@ -323,8 +325,9 @@ module ADSP
         end
 
         def test_invalid_eof
+          instance = target.new Validation::StringIOWithoutEOF.new
+
           assert_raises ValidateError do
-            instance = target.new Validation::StringIOWithoutEOF.new
             instance.eof?
           end
         end
@@ -367,13 +370,15 @@ module ADSP
             end
           end
 
+          instance = target.new Validation::StringIOWithoutReadpartial.new
+
           assert_raises ValidateError do
-            instance = target.new Validation::StringIOWithoutReadpartial.new
             instance.readpartial 1
           end
 
+          instance = target.new Validation::StringIOWithoutReadNonblock.new
+
           assert_raises ValidateError do
-            instance = target.new Validation::StringIOWithoutReadNonblock.new
             instance.read_nonblock 1
           end
         end
